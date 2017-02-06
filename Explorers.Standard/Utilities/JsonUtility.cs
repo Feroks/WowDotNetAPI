@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.Serialization.Json;
 using System.Security.Cryptography;
 
@@ -11,19 +13,21 @@ namespace WowDotNetAPI.Utilities
 {
     public static class JsonUtility
     {
+        private static readonly HttpClient HttpClient = new HttpClient();
+
         public static string GetJSON(string url)
         {
-            HttpWebRequest req = WebRequest.Create(url) as HttpWebRequest;
+            var req = new HttpRequestMessage(HttpMethod.Get, url);
             return GetJSON(req);
         }
 
-        public static string GetJSON(HttpWebRequest req)
+        public static string GetJSON(HttpRequestMessage req)
         {
             try
             {
-                HttpWebResponse res = req.GetResponse() as HttpWebResponse;
+                var res = HttpClient.SendAsync(req).Result;
 
-                StreamReader streamReader = new StreamReader(res.GetResponseStream(), Encoding.UTF8);
+                StreamReader streamReader = new StreamReader(res.Content.ReadAsStreamAsync().Result, Encoding.UTF8);
                 return streamReader.ReadToEnd();
             }
             catch (Exception e)
@@ -35,11 +39,11 @@ namespace WowDotNetAPI.Utilities
         //JSON serialization - http://www.joe-stevens.com/2009/12/29/json-serialization-using-the-datacontractjsonserializer-and-c/
         public static T FromJSON<T>(string url) where T : class
         {
-            HttpWebRequest req = WebRequest.Create(url) as HttpWebRequest;
+            var req = new HttpRequestMessage(HttpMethod.Get, url);
             return FromJSON<T>(req);
         }
 
-        public static T FromJSON<T>(HttpWebRequest req) where T : class
+        public static T FromJSON<T>(HttpRequestMessage req) where T : class
         {
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(GetJSON(req))))
             {
@@ -50,9 +54,8 @@ namespace WowDotNetAPI.Utilities
 
         public static T FromJSON<T>(string url, string publicAuthKey, string privateAuthKey) where T : class
         {
-            HttpWebRequest req = WebRequest.Create(url) as HttpWebRequest;
+            var req = new HttpRequestMessage(HttpMethod.Get, url);
             DateTime date = DateTime.Now.ToUniversalTime();
-            req.Date = date;
 
             string stringToSign = 
                 req.Method + "\n"
@@ -64,9 +67,8 @@ namespace WowDotNetAPI.Utilities
             HMACSHA1 hmac = new HMACSHA1(Encoding.UTF8.GetBytes(privateAuthKey));
 
             string signature = Convert.ToBase64String(hmac.ComputeHash(buffer));
-            
-            req.Headers[HttpRequestHeader.Authorization]
-                = "BNET " + publicAuthKey + ":" + signature;
+
+            req.Headers.Authorization = new AuthenticationHeaderValue("BNET" + publicAuthKey, "signature");
 
             return FromJSON<T>(req);
         }
