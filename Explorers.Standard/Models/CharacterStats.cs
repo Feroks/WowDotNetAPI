@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections;
+using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace WowDotNetAPI.Models
@@ -190,8 +191,9 @@ namespace WowDotNetAPI.Models
         {
             IEnumerable<KeyValuePair<string, object>> tmp = 
                 this.GetType()
-                .GetProperties()
-                .Select(pi => new KeyValuePair<string, object>( pi.Name, pi.GetGetMethod().Invoke(this, null)));
+                .GetTypeInfo()
+                .DeclaredProperties
+                .Select(pi => new KeyValuePair<string, object>( pi.Name, pi.GetMethod.Invoke(this, null)));
 
             return tmp.GetEnumerator();
         }
