@@ -1,44 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Reflection;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WowDotNetAPI.Test;
-using System.Collections;
-using Explorers.Standard.Tests;
+using WowDotNetAPI;
 using WowDotNetAPI.Models;
 using WowDotNetAPI.Utilities;
-using WowDotNetAPI;
 
-namespace WowDotNetAPI.Explorers.Test
+namespace Explorers.Standard.Tests
 {
     [TestClass]
     public class DataTests
     {
-        private static WowExplorer explorer;
-        private static string APIKey = TestStrings.APIKey;
+        private static WowExplorer _explorer;
+        private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            explorer = new WowExplorer(Region.US, Locale.en_US, APIKey);
+            _explorer = new WowExplorer(Region.US, Locale.en_US, ApiKey);
         }
 
         [TestMethod]
         public void Get_BattleGroups_Test()
         {
-            var battleGroups = explorer.GetBattlegroupsData().ToList();
+            var battleGroups = _explorer.GetBattlegroupsData().ToList();
 
-            Assert.AreEqual(9, battleGroups.Count()); 
+            Assert.AreEqual(9, battleGroups.Count); 
             Assert.IsTrue(battleGroups.Any(r => r.Name == "Rampage"));
         }
 
         [TestMethod]
         public void Get_Character_Races_Data()
         {
-            var races = explorer.GetCharacterRaces().ToList();
+            var races = _explorer.GetCharacterRaces().ToList();
 
             Assert.AreEqual(15, races.Count);
             Assert.IsTrue(races.Any(r => r.Name == "Human" || r.Name == "Night Elf"));
@@ -47,7 +39,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Character_Achievements_Data()
         {
-            var characterAchievements = explorer.GetAchievements().ToList();
+            var characterAchievements = _explorer.GetAchievements().ToList();
 
             Assert.AreEqual(15, characterAchievements.Count);
             var achievementList = characterAchievements.First(a => a.Id == 92);
@@ -58,7 +50,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Character_Classes_Data()
         {
-            var classes = explorer.GetCharacterClasses().ToList();
+            var classes = _explorer.GetCharacterClasses().ToList();
 
             Assert.IsTrue(classes.Count == 12);
             Assert.IsTrue(classes.Any(r => r.Name == "Warrior" || r.Name == "Death Knight" || r.Name == "Demon Hunter"));
@@ -67,23 +59,22 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Guild_Achievements_Data()
         {
-            var guildAchievementsList = explorer.GetGuildAchievements();
+            var guildAchievementsList = _explorer.GetGuildAchievements();
             Assert.AreEqual(7, guildAchievementsList.Count());
         }
 
         [TestMethod]
         public void Get_Guild_Rewards_Data()
         {
-            var rewards = explorer.GetGuildRewards();
-            Assert.AreEqual(64, rewards.Count());
+            var rewards = _explorer.GetGuildRewards().ToList();
+            Assert.AreEqual(64, rewards.Count);
             Assert.IsTrue(rewards.Any(r => r.Achievement != null));
         }
-
 
         [TestMethod]
         public void Get_Guild_Perks_Data()
         {
-            var perks = explorer.GetGuildPerks().ToList();
+            var perks = _explorer.GetGuildPerks().ToList();
             Assert.AreEqual(5, perks.Count);
             Assert.IsTrue(perks.Any(r => r.Spell != null));
         }
@@ -91,7 +82,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Realms_From_Json_String()
         {
-            var realms1 = explorer.GetRealms();
+            var realms1 = _explorer.GetRealms();
             var realms2 = JsonUtility.FromJSONString<RealmsData>(TestStrings.TestRealms).Realms;
             var realms3 = realms1.Intersect(realms2);
             Assert.AreEqual(0, realms3.Count());
@@ -101,11 +92,9 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Item_Classes()
         {
-            var itemClasses = explorer.GetItemClasses();
+            var itemClasses = _explorer.GetItemClasses();
             Assert.AreEqual(16, itemClasses.Count());
 
         }
-
     }
-
 }

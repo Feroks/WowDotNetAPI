@@ -1,30 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Explorers.Standard.Tests;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WowDotNetAPI.Test;
-using WowDotNetAPI.Models;
+using WowDotNetAPI;
 
-namespace WowDotNetAPI.Explorers.Test
+namespace Explorers.Standard.Tests
 {
     [TestClass]
     public class ItemTests
     {
-        private static WowExplorer explorer;
-        private static string APIKey = TestStrings.APIKey;
+        private static WowExplorer _explorer;
+        private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            explorer = new WowExplorer(Region.US, Locale.en_US, APIKey);
+            _explorer = new WowExplorer(Region.US, Locale.en_US, ApiKey);
         }
 
         [TestMethod]
         public void Get_Sample_Item_38268()
         {
-            var sampleItem = explorer.GetItem(38268);
+            var sampleItem = _explorer.GetItem(38268);
 
             Assert.AreEqual("Spare Hand", sampleItem.Name);
             Assert.AreEqual("Give to a Friend", sampleItem.Description);
@@ -40,7 +35,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Sample_Item_39564()
         {
-            var sampleItem = explorer.GetItem(39564);
+            var sampleItem = _explorer.GetItem(39564);
 
             Assert.AreEqual(@"Heroes' Bonescythe Legplates", sampleItem.Name);
             Assert.AreEqual("", sampleItem.Description);
@@ -60,7 +55,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Sample_Item_17182()
         {
-            var sampleItem = explorer.GetItem(17182);
+            var sampleItem = _explorer.GetItem(17182);
 
             Assert.AreEqual("Sulfuras, Hand of Ragnaros", sampleItem.Name);
             Assert.AreEqual("", sampleItem.Description);
@@ -79,7 +74,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Sample_Gem_52210()
         {
-            var sampleItem = explorer.GetItem(52210);
+            var sampleItem = _explorer.GetItem(52210);
 
             Assert.AreEqual("+8 Parry and +4 Stamina", sampleItem.GemInfo.Bonus.Name);
             Assert.AreEqual("PURPLE", sampleItem.GemInfo.Type.Color);

@@ -1,34 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WowDotNetAPI.Utilities;
-using System.Net;
-using Explorers.Standard.Tests;
+using WowDotNetAPI;
 using WowDotNetAPI.Models;
 
-namespace WowDotNetAPI.Explorers.Test
+namespace Explorers.Standard.Tests
 {
     [TestClass]
     public class ChallengesTests
     {
-        private static WowExplorer explorer;
-        private static Challenges challenges;
-        private static string APIKey = TestStrings.APIKey;
+        private static WowExplorer _explorer;
+        private static Challenges _challenges;
+        private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            explorer = new WowExplorer(Region.US, Locale.en_US, APIKey);            
+            _explorer = new WowExplorer(Region.US, Locale.en_US, ApiKey);            
         }
 
         [TestMethod]
         public void Get_Challenges_From_Skullcrusher()
         {
-            challenges = explorer.GetChallenges("skullcrusher");
-            Assert.IsTrue(challenges.Challenge.Count() > 0);            
-            Assert.AreEqual("Auchindoun", challenges.Challenge.First().Map.Name);
+            _challenges = _explorer.GetChallenges("skullcrusher");
+            Assert.IsTrue(_challenges.Challenge.Any());            
+            Assert.AreEqual("Auchindoun", _challenges.Challenge.First().Map.Name);
         }
     }
 }

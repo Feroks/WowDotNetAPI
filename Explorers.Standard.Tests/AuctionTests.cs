@@ -1,27 +1,27 @@
 ﻿using System.Linq;
-using Explorers.Standard.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WowDotNetAPI;
 using WowDotNetAPI.Models;
 
-namespace WowDotNetAPI.Explorers.Test
+namespace Explorers.Standard.Tests
 {
     [TestClass]
     public class AuctionTests
     {
-        private static WowExplorer explorer;
-        private static string APIKey = TestStrings.APIKey;
+        private static WowExplorer _explorer;
+        private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            explorer = new WowExplorer(Region.US, Locale.en_US, APIKey);
+            _explorer = new WowExplorer(Region.US, Locale.en_US, ApiKey);
         }
 
         [TestMethod]
         public void Get_Auction_Data()
         {
-            Auctions auctions = explorer.GetAuctions("skullcrusher");
-            Assert.IsTrue(auctions.CurrentAuctions.Count() > 0);
+            Auctions auctions = _explorer.GetAuctions("skullcrusher");
+            Assert.IsTrue(auctions.CurrentAuctions.Any());
         }
     }
 }

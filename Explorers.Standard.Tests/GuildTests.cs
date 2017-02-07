@@ -1,47 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WowDotNetAPI.Utilities;
-using System.Net;
-using Explorers.Standard.Tests;
+using WowDotNetAPI;
 using WowDotNetAPI.Models;
-using WowDotNetAPI.Explorers.Test;
 
-namespace WowDotNetAPI.Test
+namespace Explorers.Standard.Tests
 {
     [TestClass]
     public class GuildTests
     {
-        private static WowExplorer explorer;
-        private static Guild guild;
-        private static string APIKey = TestStrings.APIKey;
+        private static WowExplorer _explorer;
+        private static Guild _guild;
+        private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            explorer = new WowExplorer(Region.US, Locale.en_US, APIKey);
-            guild = explorer.GetGuild("korgath", "immortality", GuildOptions.GetEverything);
+            _explorer = new WowExplorer(Region.US, Locale.en_US, ApiKey);
+            _guild = _explorer.GetGuild("korgath", "immortality", GuildOptions.GetEverything);
         }
 
         [TestMethod]
         public void Get_Simple_Guild_Immortality_From_Korgath()
         {
-            Assert.IsTrue(guild.Realm.Equals("korgath", StringComparison.OrdinalIgnoreCase));
-            Assert.AreEqual(UnitSide.ALLIANCE, guild.Side);
-            Assert.IsTrue(guild.Members.Any());
+            Assert.IsTrue(_guild.Realm.Equals("korgath", StringComparison.OrdinalIgnoreCase));
+            Assert.AreEqual(UnitSide.ALLIANCE, _guild.Side);
+            Assert.IsTrue(_guild.Members.Any());
         }
 
         [TestMethod]
         public void Get_Valid_Night_Elf_Member_From_Immortality_Guild()
         {
-            var guildMember = guild.Members.Where(m => m.Character.Name.Equals("fleas", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+            var guildMember = _guild.Members.FirstOrDefault(m => m.Character.Name.Equals("fleas", StringComparison.OrdinalIgnoreCase));
 
             Assert.IsTrue(guildMember.Character.Name.Equals("fleas", StringComparison.OrdinalIgnoreCase));
-
             Assert.AreEqual(110, guildMember.Character.Level);
-            Assert.AreEqual(CharacterClass.DRUID, guildMember.Character.@Class);
+            Assert.AreEqual(CharacterClass.DRUID, guildMember.Character.Class);
             Assert.AreEqual(CharacterRace.NIGHT_ELF, guildMember.Character.Race);
             Assert.AreEqual(CharacterGender.MALE, guildMember.Character.Gender);
         }
@@ -49,7 +43,7 @@ namespace WowDotNetAPI.Test
         [TestMethod]
         public void Get_Valid_Member_From_Another_Guild()
         {
-            Guild guild = explorer.GetGuild("laughing skull", "deus vox", GuildOptions.GetMembers | GuildOptions.GetAchievements);
+            var guild = _explorer.GetGuild("laughing skull", "deus vox", GuildOptions.GetMembers | GuildOptions.GetAchievements);
 
 
             Assert.IsNotNull(guild.Members);
@@ -65,7 +59,7 @@ namespace WowDotNetAPI.Test
         [TestMethod]
         public void Get_Valid_Member_From_Horde_Guild()
         {
-            Guild guild = explorer.GetGuild("skullcrusher", "rage", GuildOptions.GetMembers);
+            var guild = _explorer.GetGuild("skullcrusher", "rage", GuildOptions.GetMembers);
 
             Assert.IsNotNull(guild.Members);
             Assert.IsNull(guild.Achievements);
@@ -81,8 +75,7 @@ namespace WowDotNetAPI.Test
         [TestMethod]
         public void Get_Guild_With_Only_Achievements()
         {
-            Guild guild = explorer.GetGuild("skullcrusher", "immortality", GuildOptions.GetAchievements);
-
+            var guild = _explorer.GetGuild("skullcrusher", "immortality", GuildOptions.GetAchievements);
 
             Assert.IsNull(guild.Members);
             Assert.IsNotNull(guild.Achievements);
@@ -94,7 +87,7 @@ namespace WowDotNetAPI.Test
         [TestMethod]
         public void Get_Guild_With_Only_Members()
         {
-            Guild guild = explorer.GetGuild("skullcrusher", "immortality", GuildOptions.GetMembers);
+            var guild = _explorer.GetGuild("skullcrusher", "immortality", GuildOptions.GetMembers);
 
             Assert.IsNotNull(guild.Members);
             Assert.IsNull(guild.Achievements);
@@ -106,7 +99,7 @@ namespace WowDotNetAPI.Test
         [TestMethod]
         public void Get_Guild_With_Only_No_Options()
         {
-            var guild = explorer.GetGuild("skullcrusher", "immortality", GuildOptions.None);
+            var guild = _explorer.GetGuild("skullcrusher", "immortality", GuildOptions.None);
 
             Assert.IsNull(guild.Members);
             Assert.IsNull(guild.Achievements);
@@ -118,7 +111,7 @@ namespace WowDotNetAPI.Test
         [TestMethod]
         public void Get_Guild_With_Base_Method_Call()
         {
-            var guild = explorer.GetGuild("skullcrusher", "immortality");
+            var guild = _explorer.GetGuild("skullcrusher", "immortality");
 
             Assert.IsNull(guild.Members);
             Assert.IsNull(guild.Achievements);
@@ -129,10 +122,10 @@ namespace WowDotNetAPI.Test
 
         [TestMethod]
         public void Get_Guild_With_Connected_Realms() {
-            var explorer2 = new WowExplorer(Region.EU, Locale.en_GB, APIKey);
-            var guild2 = explorer2.GetGuild("darksorrow", "mentality", GuildOptions.GetMembers);
+            var explorer = new WowExplorer(Region.EU, Locale.en_GB, ApiKey);
+            var guild = explorer.GetGuild("darksorrow", "mentality", GuildOptions.GetMembers);
             //var guildMembers = guild2.Members.Where(x => x.Character.Name.Equals("Danishpala", StringComparison.CurrentCultureIgnoreCase)).ToList();
-            var guildMaster = guild2.Members.OrderBy(x => x.Rank).First().Character;
+            var guildMaster = guild.Members.OrderBy(x => x.Rank).First().Character;
 
             Assert.AreEqual("Doomtráin", guildMaster.Name);
             // TODO: check connected realm

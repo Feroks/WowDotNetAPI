@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Explorers.Standard.Tests;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WowDotNetAPI;
 
-namespace WowDotNetAPI.Explorers.Test
+namespace Explorers.Standard.Tests
 {
     [TestClass]
-    class SpellTests
+    internal class SpellTests
     {
-        private static WowExplorer explorer;
-        private static string APIKey = TestStrings.APIKey;
+        private static WowExplorer _explorer;
+        private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            explorer = new WowExplorer(Region.US, Locale.en_US, APIKey);
+            _explorer = new WowExplorer(Region.US, Locale.en_US, ApiKey);
         }
 
         [TestMethod]
         public void Get_Spell_Data()
         {
-            var spell = explorer.GetSpellData(8056);
+            var spell = _explorer.GetSpellData(8056);
             Assert.IsNotNull(spell);
         }
     }
