@@ -29,7 +29,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_BattleGroups_Test()
         {
-            var battleGroups = explorer.GetBattlegroupsData();
+            var battleGroups = explorer.GetBattlegroupsData().ToList();
 
             Assert.AreEqual(9, battleGroups.Count()); 
             Assert.IsTrue(battleGroups.Any(r => r.Name == "Rampage"));
@@ -38,31 +38,30 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Character_Races_Data()
         {
-            var races = explorer.GetCharacterRaces();
+            var races = explorer.GetCharacterRaces().ToList();
 
-            Assert.AreEqual(15, races.Count());
+            Assert.AreEqual(15, races.Count);
             Assert.IsTrue(races.Any(r => r.Name == "Human" || r.Name == "Night Elf"));
         }
 
         [TestMethod]
         public void Get_Character_Achievements_Data()
         {
-            var characterAchievements = explorer.GetAchievements();
+            var characterAchievements = explorer.GetAchievements().ToList();
 
-            Assert.AreEqual(14, characterAchievements.Count());
-            var achievementList = characterAchievements.First<AchievementList>(a => a.Id == 92);
-            var gotMyMindOnMyMoneyAchievement = achievementList.Achievements.First<AchievementInfo>(a => a.Id == 1181);
+            Assert.AreEqual(15, characterAchievements.Count);
+            var achievementList = characterAchievements.First(a => a.Id == 92);
+            var gotMyMindOnMyMoneyAchievement = achievementList.Achievements.First(a => a.Id == 1181);
             Assert.AreEqual("Loot 25,000 gold", gotMyMindOnMyMoneyAchievement.Criteria.ElementAt(0).Description);
-
         }
 
         [TestMethod]
         public void Get_Character_Classes_Data()
         {
-            var classes = explorer.GetCharacterClasses();
+            var classes = explorer.GetCharacterClasses().ToList();
 
-            Assert.IsTrue(classes.Count() == 11);
-            Assert.IsTrue(classes.Any(r => r.Name == "Warrior" || r.Name == "Death Knight"));
+            Assert.IsTrue(classes.Count == 12);
+            Assert.IsTrue(classes.Any(r => r.Name == "Warrior" || r.Name == "Death Knight" || r.Name == "Demon Hunter"));
         }
 
         [TestMethod]
@@ -84,8 +83,8 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Guild_Perks_Data()
         {
-            var perks = explorer.GetGuildPerks();
-            Assert.AreEqual(6, perks.Count());
+            var perks = explorer.GetGuildPerks().ToList();
+            Assert.AreEqual(5, perks.Count);
             Assert.IsTrue(perks.Any(r => r.Spell != null));
         }
 

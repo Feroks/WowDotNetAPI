@@ -54,9 +54,7 @@ namespace WowDotNetAPI.Explorers.Test
             Assert.AreEqual(4, sampleItem.AllowableClasses.First());
             Assert.AreEqual(16, sampleItem.BonusStats.ElementAt(2).Amount);
 
-            Assert.AreEqual("BLUE", sampleItem.SocketInfo.Sockets.First().Type);
-
-
+            Assert.AreEqual("PRISMATIC", sampleItem.SocketInfo.Sockets.First().Type);
         }
 
         [TestMethod]
@@ -74,9 +72,8 @@ namespace WowDotNetAPI.Explorers.Test
 
             Assert.AreEqual(3.7, sampleItem.WeaponInfo.WeaponSpeed);
 
-            Assert.AreEqual(8, sampleItem.BonusStats.ElementAt(2).Amount);
-            Assert.AreEqual("Hurls a fiery ball that causes ^6.7081 Fire damage and an additional ^1.6600 damage over 10 sec.",
-                sampleItem.ItemSpells.First().Spell.Description);
+            Assert.AreEqual(8, sampleItem.BonusStats.ElementAt(1).Amount);
+            Assert.AreEqual("2 sec cast", sampleItem.ItemSpells.First().Spell.CastTime);
         }
 
         [TestMethod]

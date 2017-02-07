@@ -167,7 +167,7 @@ namespace WowDotNetAPI.Test
 
 		[TestMethod]
 		public void Get_Simple_Character_WithItems_Tabard() {
-			string characterNameWithTabard = "Nidus";
+			string characterNameWithTabard = "Taichibi";
 			var briandek = explorer.GetCharacter(Realm, characterNameWithTabard, CharacterOptions.GetItems);
 			Assert.IsNotNull(briandek.Items);
 			Assert.IsTrue(briandek.Name.Equals(characterNameWithTabard, StringComparison.OrdinalIgnoreCase));
