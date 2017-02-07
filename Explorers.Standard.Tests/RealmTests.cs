@@ -64,8 +64,8 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_All_Realms_By_Population_Returns_Realms_That_Have_Low_Population()
         {
-            var realmList = _explorer.GetRealms().Where(r => r.population == "low").ToList();
-            var allCollectedRealmsHaveLowPopulation = realmList.Any() && realmList.All(r => r.population == "low");
+            var realmList = _explorer.GetRealms().Where(r => r.Population == "low").ToList();
+            var allCollectedRealmsHaveLowPopulation = realmList.Any() && realmList.All(r => r.Population == "low");
             Assert.IsTrue(allCollectedRealmsHaveLowPopulation);
         }
     }

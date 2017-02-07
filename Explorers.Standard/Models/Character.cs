@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace WowDotNetAPI.Models
 {
@@ -47,102 +46,55 @@ namespace WowDotNetAPI.Models
     public enum CharacterGender
     {
         MALE = 0,
-        FEMALE = 1,
+        FEMALE = 1
     }
 
-    [DataContract]
     public class Character : IComparable<Character>
     {
-        [DataMember(Name = "lastModified")]
         public string LastModified { get; set; }
-
-        [DataMember(Name = "name")]
         public string Name { get; set; }
-
-        [DataMember(Name = "realm")]
         public string Realm { get; set; }
 
-        [DataMember(Name = "class")]
-        private int @class { get; set; }
+        [JsonProperty("class")]
+        private int ClassValue { get; set; }
 
-        [DataMember(Name = "race")]
-        private int race { get; set; }
+        [JsonProperty("race")]
+        private int RaceValue { get; set; }
 
-        [DataMember(Name = "gender")]
-        private int gender { get; set; }
-
-        [DataMember(Name = "level")]
+        [JsonProperty("Gender")]
+        private int GenderValue { get; set; }
         public int Level { get; set; }
-
-        [DataMember(Name = "achievementPoints")]
         public int AchievementPoints { get; set; }
-
-        [DataMember(Name = "calcClass")]
         public char CalcClass { get; set; }
-
-        [DataMember(Name = "thumbnail")]
         public string Thumbnail { get; set; }
-
-        [DataMember(Name = "guild")]
         public CharacterGuild Guild { get; set; }
-
-        [DataMember(Name = "stats")]
         public CharacterStats Stats { get; set; }
-
-        [DataMember(Name = "talents")]
         public IEnumerable<CharacterTalent> Talents { get; set; }
-
-        [DataMember(Name = "items")]
         public CharacterEquipment Items { get; set; }
-
-        [DataMember(Name = "reputation")]
         public IEnumerable<CharacterReputation> Reputation { get; set; }
-
-        [DataMember(Name = "titles")]
         public IEnumerable<CharacterTitle> Titles { get; set; }
-
-        [DataMember(Name = "professions")]
         public CharacterProfessions Professions { get; set; }
-
-        [DataMember(Name = "achievements")]
         public Achievements Achievements { get; set; }
-
-        [DataMember(Name = "appearance")]
         public CharacterAppearance Appearance { get; set; }
-
-        [DataMember(Name = "mounts")]
         public CharacterMounts Mounts { get; set; }
-
-        [DataMember(Name = "hunterPets")]
         public IEnumerable<CharacterHunterPet> HunterPets { get; set; }
-
-        [DataMember(Name = "pets")]
         public CharacterPets Pets { get; set; }
-
-        [DataMember(Name = "petSlots")]
         public IEnumerable<CharacterPetSlot> PetSlots { get; set; }
-
-        [DataMember(Name = "progression")]
         public Progression Progression { get; set; }
-
-        [DataMember(Name = "feed")]
         public IEnumerable<CharacterFeed> Feed { get; set; }
-
-        [DataMember(Name = "pvp")]
         public CharacterPvP PvP { get; set; }
-
-        [DataMember(Name = "quests")]
         public IEnumerable<int> Quests { get; set; }
-
-        [DataMember(Name = "statistics")]
         public CharacterStatistics Statistics { get; set; }
-
-        [DataMember(Name = "totalHonorableKills")]
         public int TotalHonorableKills { get; set; }
 
-        public CharacterClass Class { get { return (CharacterClass)Enum.Parse(typeof(CharacterClass), Enum.GetName(typeof(CharacterClass), @class).Replace(' ', '_')); } }
-        public CharacterRace @Race { get { return (CharacterRace)Enum.Parse(typeof(CharacterRace), Enum.GetName(typeof(CharacterRace), race).Replace(' ', '_')); } }
-        public CharacterGender Gender { get { return (CharacterGender)Enum.Parse(typeof(CharacterGender), Enum.GetName(typeof(CharacterGender), gender).Replace(' ', '_')); } }
+        [JsonIgnore]
+        public CharacterClass Class => (CharacterClass)Enum.Parse(typeof(CharacterClass), Enum.GetName(typeof(CharacterClass), ClassValue).Replace(' ', '_'));
+
+        [JsonIgnore]
+        public CharacterRace Race => (CharacterRace)Enum.Parse(typeof(CharacterRace), Enum.GetName(typeof(CharacterRace), RaceValue).Replace(' ', '_'));
+
+        [JsonIgnore]
+        public CharacterGender Gender => (CharacterGender)Enum.Parse(typeof(CharacterGender), Enum.GetName(typeof(CharacterGender), GenderValue).Replace(' ', '_'));
 
         //TODO: cleanup 
         //probably better to override equality operators http://msdn.microsoft.com/en-us/library/ms173147.aspx

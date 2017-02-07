@@ -3,8 +3,10 @@
     <TargetFramework>netstandard1.6</TargetFramework>
     <AssemblyName>WowDotNetAPI</AssemblyName>
     <RootNamespace>WowDotNetAPI</RootNamespace>
+    <Authors>WowDotNetAPI</Authors>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Json" Version="4.3.0" />
   </ItemGroup>

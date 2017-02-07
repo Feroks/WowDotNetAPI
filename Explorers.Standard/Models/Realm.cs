@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace WowDotNetAPI.Models
 {
-    [DataContract]
     public enum RealmType
     {
         [EnumMember(Value = "pve")]
@@ -32,37 +30,28 @@ namespace WowDotNetAPI.Models
     //    NA
     //}
 
-    [DataContract]
     public class Realm
     {
-        [DataMember(Name = "type")]
-        private string type { get; set; }
+        [JsonProperty("type")]
+        private string TypeValue { get; set; }
 
-        [DataMember(Name = "queue")]
         public bool Queue { get; set; }
 
-        [DataMember(Name = "status")]
         public bool Status { get; set; }
 
-        [DataMember(Name = "population")]
-        public string population { get; set; }
+        public string Population { get; set; }
 
-        [DataMember(Name = "name")]
         public string Name { get; set; }
 
-        [DataMember(Name = "slug")]
         public string Slug { get; set; }
 
-        [DataMember(Name = "battlegroup")]
         public string Battlegroup { get; set; }
 
-        [DataMember(Name = "locale")]
         public string Locale { get; set; }
 
-        public RealmType Type { get { return (RealmType)Enum.Parse(typeof(RealmType), type, true); } }
+        public RealmType Type => (RealmType)Enum.Parse(typeof(RealmType), TypeValue, true);
 
         //See enum TODO comments
         //public RealmPopulation Population { get { return (RealmPopulation)Enum.Parse(typeof(RealmPopulation), population, true); } }
-
     }
 }

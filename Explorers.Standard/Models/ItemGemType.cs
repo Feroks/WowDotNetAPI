@@ -1,11 +1,10 @@
-﻿using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace WowDotNetAPI.Models
 {
-    [DataContract]
     public class ItemGemType
     {
-        [DataMember(Name = "type")]
+        [JsonProperty("type")]
         public string Color { get; set; }
     }
 }

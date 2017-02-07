@@ -83,7 +83,7 @@ namespace WowDotNetAPI.Explorers.Test
         public void Get_Realms_From_Json_String()
         {
             var realms1 = _explorer.GetRealms();
-            var realms2 = JsonUtility.FromJSONString<RealmsData>(TestStrings.TestRealms).Realms;
+            var realms2 = JsonUtility.FromJsonString<RealmsData>(TestStrings.TestRealms).Realms;
             var realms3 = realms1.Intersect(realms2);
             Assert.AreEqual(0, realms3.Count());
 

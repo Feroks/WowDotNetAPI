@@ -1,19 +1,14 @@
-﻿using System.Runtime.Serialization;
+﻿namespace WowDotNetAPI.Models
+{
+    public class ItemStat
+    {
+        public int Stat { get; set; }
 
-namespace WowDotNetAPI.Models {
-	[DataContract]
-	public class ItemStat {
-		[DataMember(Name = "stat")]
-		public int Stat { get; set; }
+        public int Amount { get; set; }
 
-		[DataMember(Name = "amount")]
-		public int Amount { get; set; }
+        public int ReforgedAmount { get; set; }
 
-		[DataMember(Name = "reforgedAmount")]
-		public int ReforgedAmount { get; set; }
+        public bool Reforged { get; set; }
 
-		[DataMember(Name = "reforged")]
-		public bool Reforged { get; set; }
-
-	}
+    }
 }

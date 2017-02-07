@@ -1,8 +1,6 @@
 ﻿ using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.Serialization;
+ using System.Runtime.Serialization;
+ using Newtonsoft.Json;
 
 namespace WowDotNetAPI.Models
 {
@@ -30,12 +28,12 @@ namespace WowDotNetAPI.Models
         [DataMember(Name = "mask")]
         public int Mask { get; set; }
 
-        [DataMember(Name = "powerType")]
-        private string powerType { get; set; }
+        [JsonProperty("powerType")]
+        private string PowerTypeValue { get; set; }
 
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
-        public CharacterPowerType PowerType { get { return (CharacterPowerType)Enum.Parse(typeof(CharacterPowerType), powerType.Replace("-", string.Empty), true); } }
+        public CharacterPowerType PowerType => (CharacterPowerType)Enum.Parse(typeof(CharacterPowerType), PowerTypeValue.Replace("-", string.Empty), true);
     }
 }

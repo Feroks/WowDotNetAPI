@@ -309,7 +309,7 @@ namespace WowDotNetAPI
                 string url = "";
                 foreach (AuctionFile auctionFile in auctionFiles.Files)
                 {
-                    url = auctionFile.URL;
+                    url = auctionFile.Url;
                 }
 
                 Auctions auctions;
@@ -557,14 +557,14 @@ namespace WowDotNetAPI
 
         private T GetData<T>(string url) where T : class
         {
-            return JsonUtility.FromJSON<T>(url);
+            return JsonUtility.FromJson<T>(url);
         }
 
         private void TryGetData<T>(string url, out T requestedObject) where T : class
         {
             try
             {
-                requestedObject = JsonUtility.FromJSON<T>(url);
+                requestedObject = JsonUtility.FromJson<T>(url);
             }
             catch (Exception ex)
             {

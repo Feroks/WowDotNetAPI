@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace WowDotNetAPI.Models
 {
-    [DataContract]
     public class ItemWeaponDamage
     {
-        [DataMember(Name="min")]
+        [JsonProperty("min")]
         public int MinDamage { get; set; }
 
-        [DataMember(Name = "max")]
+        [JsonProperty("max")]
         public int MaxDamage { get; set; }
-        
     }
 }

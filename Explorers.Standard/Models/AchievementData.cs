@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace WowDotNetAPI.Models
 {
-    [DataContract]
     public class AchievementData
     {
-        [DataMember(Name = "achievements")]
+        [JsonProperty("achievements")]
         public IEnumerable<AchievementList> Lists { get; set; }
     }
 }

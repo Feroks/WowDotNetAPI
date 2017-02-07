@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace WowDotNetAPI.Models
 {
-    [DataContract]
     public enum Bracket
     {
         _2v2,
@@ -12,10 +11,9 @@ namespace WowDotNetAPI.Models
         rbg
     }
 
-    [DataContract]
     public class Leaderboard
     {
-        [DataMember(Name = "rows")]
+        [JsonProperty("rows")]
         public IEnumerable<PvpStats> PvpStats { get; set; }
     }
 }
