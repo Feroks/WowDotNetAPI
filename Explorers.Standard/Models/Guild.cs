@@ -6,8 +6,8 @@ namespace WowDotNetAPI.Models
 {
     public enum UnitSide
     {
-        ALLIANCE = 0,
-        HORDE = 1
+        Alliance = 0,
+        Horde = 1
     }
     
     public class Guild

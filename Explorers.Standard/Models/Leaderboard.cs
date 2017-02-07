@@ -5,10 +5,10 @@ namespace WowDotNetAPI.Models
 {
     public enum Bracket
     {
-        _2v2,
-        _3v3,
-        _5v5,
-        rbg
+        _2V2,
+        _3V3,
+        _5V5,
+        Rbg
     }
 
     public class Leaderboard

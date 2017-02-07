@@ -24,7 +24,7 @@ namespace WowDotNetAPI.Explorers.Test
         public void Get_Simple_Guild_Immortality_From_Korgath()
         {
             Assert.IsTrue(_guild.Realm.Equals("korgath", StringComparison.OrdinalIgnoreCase));
-            Assert.AreEqual(UnitSide.ALLIANCE, _guild.Side);
+            Assert.AreEqual(UnitSide.Alliance, _guild.Side);
             Assert.IsTrue(_guild.Members.Any());
         }
 
@@ -53,7 +53,7 @@ namespace WowDotNetAPI.Explorers.Test
             Assert.IsTrue(guild.Realm.Equals("laughing skull", StringComparison.OrdinalIgnoreCase));
             Assert.IsTrue(guild.Members.Any());
 
-            Assert.AreEqual(UnitSide.ALLIANCE, guild.Side);
+            Assert.AreEqual(UnitSide.Alliance, guild.Side);
         }
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace WowDotNetAPI.Explorers.Test
 
             Assert.IsTrue(guild.Members.Any());
 
-            Assert.IsTrue(guild.Side == UnitSide.HORDE);
+            Assert.IsTrue(guild.Side == UnitSide.Horde);
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace WowDotNetAPI.Explorers.Test
             Assert.IsNotNull(guild.Achievements);
 
             Assert.IsTrue(guild.Realm.Equals("skullcrusher", StringComparison.OrdinalIgnoreCase));
-            Assert.AreEqual(UnitSide.ALLIANCE, guild.Side);
+            Assert.AreEqual(UnitSide.Alliance, guild.Side);
         }
 
         [TestMethod]
@@ -93,7 +93,7 @@ namespace WowDotNetAPI.Explorers.Test
             Assert.IsNull(guild.Achievements);
 
             Assert.IsTrue(guild.Realm.Equals("skullcrusher", StringComparison.OrdinalIgnoreCase));
-            Assert.AreEqual(UnitSide.ALLIANCE, guild.Side);
+            Assert.AreEqual(UnitSide.Alliance, guild.Side);
         }
 
         [TestMethod]
@@ -105,7 +105,7 @@ namespace WowDotNetAPI.Explorers.Test
             Assert.IsNull(guild.Achievements);
 
             Assert.IsTrue(guild.Realm.Equals("skullcrusher", StringComparison.OrdinalIgnoreCase));
-            Assert.AreEqual(UnitSide.ALLIANCE, guild.Side);
+            Assert.AreEqual(UnitSide.Alliance, guild.Side);
         }
 
         [TestMethod]
@@ -117,7 +117,7 @@ namespace WowDotNetAPI.Explorers.Test
             Assert.IsNull(guild.Achievements);
 
             Assert.IsTrue(guild.Realm.Equals("skullcrusher", StringComparison.OrdinalIgnoreCase));
-            Assert.AreEqual(UnitSide.ALLIANCE, guild.Side);
+            Assert.AreEqual(UnitSide.Alliance, guild.Side);
         }
 
         [TestMethod]
