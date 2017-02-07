@@ -1,49 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace WowDotNetAPI.Models
 {
     public enum CharacterClass
     {
-        WARRIOR = 1,
-        PALADIN = 2,
-        HUNTER = 3,
-        ROGUE = 4,
-        PRIEST = 5,
-        DEATH_KNIGHT = 6,
-        SHAMAN = 7,
-        MAGE = 8,
-        WARLOCK = 9,
-        MONK = 10,
-        DRUID = 11,
-        DEMONHUNTER = 12
+        Warrior = 1,
+        Paladin = 2,
+        Hunter = 3,
+        Rogue = 4,
+        Priest = 5,
+        DeathKnight = 6,
+        Shaman = 7,
+        Mage = 8,
+        Warlock = 9,
+        Monk = 10,
+        Druid = 11,
+        Demonhunter = 12
     }
 
     public enum CharacterRace
     {
-        HUMAN = 1,
-        ORC = 2,
-        DWARF = 3,
-        NIGHT_ELF = 4,
-        UNDEAD = 5,
-        TAUREN = 6,
-        GNOME = 7,
-        TROLL = 8,
-        GOBLIN = 9,
-        BLOOD_ELF = 10,
-        DRAENEI = 11,
-        WORGEN = 22,
-        PANDAREN_NEUTRAL = 24,
-        PANDAREN_ALLIANCE = 25,
-        PANDAREN_HORDE = 26
+        Human = 1,
+        Orc = 2,
+        Dwarf = 3,
+        NightElf = 4,
+        Undead = 5,
+        Tauren = 6,
+        Gnome = 7,
+        Troll = 8,
+        Goblin = 9,
+        BloodElf = 10,
+        Draenei = 11,
+        Worgen = 22,
+        PandarenNeutral = 24,
+        PandarenAlliance = 25,
+        PandarenHorde = 26
     }
 
     public enum CharacterGender
     {
-        MALE = 0,
-        FEMALE = 1
+        Male = 0,
+        Female = 1
     }
 
     public class Character : IComparable<Character>

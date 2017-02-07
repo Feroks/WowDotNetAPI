@@ -35,9 +35,9 @@ namespace WowDotNetAPI.Explorers.Test
 
             Assert.IsTrue(guildMember.Character.Name.Equals("fleas", StringComparison.OrdinalIgnoreCase));
             Assert.AreEqual(110, guildMember.Character.Level);
-            Assert.AreEqual(CharacterClass.DRUID, guildMember.Character.Class);
-            Assert.AreEqual(CharacterRace.NIGHT_ELF, guildMember.Character.Race);
-            Assert.AreEqual(CharacterGender.MALE, guildMember.Character.Gender);
+            Assert.AreEqual(CharacterClass.Druid, guildMember.Character.Class);
+            Assert.AreEqual(CharacterRace.NightElf, guildMember.Character.Race);
+            Assert.AreEqual(CharacterGender.Male, guildMember.Character.Gender);
         }
 
         [TestMethod]

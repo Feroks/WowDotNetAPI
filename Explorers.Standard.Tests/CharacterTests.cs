@@ -16,9 +16,9 @@ namespace WowDotNetAPI.Explorers.Test
         private const string CharacterName = "briandek";
         private const string Realm = "korgath";
         private const int Level = 110;
-        private const CharacterClass CClass = CharacterClass.WARRIOR;
-        private const CharacterRace CRace = CharacterRace.HUMAN;
-        private const CharacterGender CGender = CharacterGender.MALE;
+        private const CharacterClass CClass = CharacterClass.Warrior;
+        private const CharacterRace CRace = CharacterRace.Human;
+        private const CharacterGender CGender = CharacterGender.Male;
 
         [ClassInitialize]
         public static void ClassInit(TestContext context)
