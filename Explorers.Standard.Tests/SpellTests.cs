@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WowDotNetAPI;
+﻿using Explorers.Standard.Tests;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Explorers.Standard.Tests
+namespace WowDotNetAPI.Explorers.Test
 {
     [TestClass]
     internal class SpellTests

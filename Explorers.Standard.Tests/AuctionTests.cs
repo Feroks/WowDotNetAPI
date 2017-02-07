@@ -1,9 +1,9 @@
 ﻿using System.Linq;
+using Explorers.Standard.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WowDotNetAPI;
 using WowDotNetAPI.Models;
 
-namespace Explorers.Standard.Tests
+namespace WowDotNetAPI.Explorers.Test
 {
     [TestClass]
     public class AuctionTests

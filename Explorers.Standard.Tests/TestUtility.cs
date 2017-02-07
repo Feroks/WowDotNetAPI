@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Explorers.Standard.Tests
+namespace WowDotNetAPI.Explorers.Test
 {
     [TestClass]
     public class TestUtility
