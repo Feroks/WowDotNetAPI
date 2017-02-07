@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 
 namespace WowDotNetAPI.Models
 {
-    [DataContract]
     public enum CharacterClass
     {
         WARRIOR = 1,
@@ -22,7 +21,6 @@ namespace WowDotNetAPI.Models
         DEMONHUNTER = 12
     }
 
-    [DataContract]
     public enum CharacterRace
     {
         HUMAN = 1,
@@ -42,7 +40,6 @@ namespace WowDotNetAPI.Models
         PANDAREN_HORDE = 26
     }
 
-    [DataContract]
     public enum CharacterGender
     {
         MALE = 0,
