@@ -4,7 +4,6 @@
 
 namespace WowDotNetAPI.Models
 {
-    [DataContract]
     public enum CharacterPowerType
     {
         [EnumMember(Value = "focus")]
@@ -19,19 +18,15 @@ namespace WowDotNetAPI.Models
         RUNICPOWER
     }
 
-    [DataContract]
     public class CharacterClassInfo
     {
-        [DataMember(Name = "id")]
         public int Id { get; set; }
 
-        [DataMember(Name = "mask")]
         public int Mask { get; set; }
 
         [JsonProperty("powerType")]
         private string PowerTypeValue { get; set; }
 
-        [DataMember(Name = "name")]
         public string Name { get; set; }
 
         public CharacterPowerType PowerType => (CharacterPowerType)Enum.Parse(typeof(CharacterPowerType), PowerTypeValue.Replace("-", string.Empty), true);
