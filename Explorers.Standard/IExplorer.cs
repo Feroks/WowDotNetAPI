@@ -1,11 +1,5 @@
-﻿﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
+﻿using System.Collections.Generic;
 using WowDotNetAPI.Models;
-using System.Runtime.Serialization.Json;
-using WowDotNetAPI.Utilities;
 
 namespace WowDotNetAPI
 {
