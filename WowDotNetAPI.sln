@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26127.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explorers.Test", "Explorers.Test\Explorers.Test.csproj", "{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explorers.Standard", "Explorers.Standard\Explorers.Standard.csproj", "{1D105217-DF93-448E-B7B6-AC47FDA6360D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explorers.Standard.Tests", "Explorers.Standard.Tests\Explorers.Standard.Tests.csproj", "{80FD0398-D238-4E4B-BF19-45BA27402E63}"
@@ -21,18 +19,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Release|x64.ActiveCfg = Release|Any CPU
-		{F1E03291-0C37-40F6-8AAF-9B471ADEEFA1}.Release|x86.ActiveCfg = Release|Any CPU
 		{1D105217-DF93-448E-B7B6-AC47FDA6360D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D105217-DF93-448E-B7B6-AC47FDA6360D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D105217-DF93-448E-B7B6-AC47FDA6360D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
