@@ -80,7 +80,7 @@ namespace WowDotNetAPI
     {
         public Region Region { get; set; }
         public Locale Locale { get; set; }
-        public string APIKey { get; set; }
+        public string ApiKey { get; set; }
 
         public string Host { get; set; }
 
@@ -88,7 +88,7 @@ namespace WowDotNetAPI
         {
             Region = region;
             Locale = locale;
-            APIKey = apiKey;
+            ApiKey = apiKey;
 
             switch (Region)
             {
@@ -104,7 +104,6 @@ namespace WowDotNetAPI
                 case Region.CN:
                     Host = "https://www.battlenet.com.cn";
                     break;
-                case Region.US:
                 default:
                     Host = "https://us.api.battle.net";
                     break;
@@ -130,12 +129,7 @@ namespace WowDotNetAPI
 
         public Character GetCharacter(Region region, string realm, string name, CharacterOptions characterOptions)
         {
-            Character character;
-
-            TryGetData<Character>(
-                string.Format(@"{0}/wow/character/{1}/{2}?locale={3}{4}&apikey={5}", Host, realm, name, Locale, CharacterUtility.buildOptionalQuery(characterOptions), APIKey),
-                out character);
-
+            TryGetData($@"{Host}/wow/character/{realm}/{name}?locale={Locale}{CharacterUtility.BuildOptionalQuery(characterOptions)}&apikey={ApiKey}", out Character character);
             return character;
         }
 
@@ -160,12 +154,7 @@ namespace WowDotNetAPI
 
         public Guild GetGuild(Region region, string realm, string name, GuildOptions realmOptions)
         {
-            Guild guild;
-
-            TryGetData<Guild>(
-                string.Format(@"{0}/wow/guild/{1}/{2}?locale={3}{4}&apikey={5}", Host, realm, name, Locale, GuildUtility.buildOptionalQuery(realmOptions), APIKey),
-                out guild);
-
+            TryGetData($@"{Host}/wow/guild/{realm}/{name}?locale={Locale}{GuildUtility.BuildOptionalQuery(realmOptions)}&apikey={ApiKey}", out Guild guild);
             return guild;
         }
 
@@ -179,11 +168,7 @@ namespace WowDotNetAPI
         /// <returns>PetList object containing an IEnumerable of Pet objects</returns>
         public IEnumerable<Pet> GetPets()
         {
-            PetList pets;
-
-            TryGetData<PetList>(string.Format(@"{0}/wow/pet/?locale={1}&apikey={2}", Host, Locale, APIKey),
-                out pets);
-
+            TryGetData($@"{Host}/wow/pet/?locale={Locale}&apikey={ApiKey}", out PetList pets);
             return pets.Pets;
         }
 
@@ -194,11 +179,7 @@ namespace WowDotNetAPI
         /// <returns>Returns PetAbilityDetails object for the ability with the given id</returns>
         public PetAbilityDetails GetPetAbilityDetails(int id)
         {
-            PetAbilityDetails ability;
-
-            TryGetData<PetAbilityDetails>(string.Format(@"{0}/wow/pet/ability/{1}?locale={2}&apikey={3}", Host, id, Locale, APIKey),
-                out ability);
-
+            TryGetData($@"{Host}/wow/pet/ability/{id}?locale={Locale}&apikey={ApiKey}", out PetAbilityDetails ability);
             return ability;
         }
 
@@ -209,11 +190,7 @@ namespace WowDotNetAPI
         /// <returns>PetSpecies object containing details for the battle pet with the given species ID</returns>
         public PetSpecies GetPetSpeciesDetails(int id)
         {
-            PetSpecies species;
-
-            TryGetData<PetSpecies>(string.Format(@"{0}/wow/pet/species/{1}?locale={2}&apikey={3}", Host, id, Locale, APIKey),
-                out species);
-
+            TryGetData($@"{Host}/wow/pet/species/{id}?locale={Locale}&apikey={ApiKey}", out PetSpecies species);
             return species;
         }
 
@@ -227,11 +204,7 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public PetStats GetPetStats(int speciesId, int level, int breedId, int qualityId)
         {
-            PetStats stats;
-
-            TryGetData<PetStats>(string.Format(@"{0}/wow/pet/stats/{1}?level={2}&breedId={3}&qualityId={4}&locale={5}&apikey={6}", Host, speciesId, level, breedId, qualityId, Locale, APIKey),
-                out stats);
-
+            TryGetData($@"{Host}/wow/pet/stats/{speciesId}?level={level}&breedId={breedId}&qualityId={qualityId}&locale={Locale}&apikey={ApiKey}", out PetStats stats);
             return stats;
         }
 
@@ -241,11 +214,7 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public IEnumerable<PetType> GetPetTypes()
         {
-            PetTypeData types;
-
-            TryGetData<PetTypeData>(string.Format(@"{0}/wow/data/pet/types?locale={1}&apikey={2}", Host, Locale, APIKey),
-                out types);
-
+            TryGetData($@"{Host}/wow/data/pet/types?locale={Locale}&apikey={ApiKey}", out PetTypeData types);
             return types.PetTypes.Any() ? types.PetTypes : null;
         }
 
@@ -255,11 +224,7 @@ namespace WowDotNetAPI
 
         public IEnumerable<Mount> GetMounts()
         {
-            Mounts mounts;
-
-            TryGetData<Mounts>(string.Format(@"{0}/wow/mount/?locale={1}&apikey={2}", Host, Locale, APIKey),
-                out mounts);
-
+            TryGetData($@"{Host}/wow/mount/?locale={Locale}&apikey={ApiKey}", out Mounts mounts);
             return mounts.MountList;
         }
 
@@ -268,10 +233,7 @@ namespace WowDotNetAPI
         #region Realms
         public IEnumerable<Realm> GetRealms(Locale locale)
         {
-            RealmsData realmsData;
-            TryGetData<RealmsData>(
-                string.Format(@"{0}/wow/realm/status?locale={1}&apikey={2}", Host, Locale, APIKey),
-                out realmsData);
+            TryGetData($@"{Host}/wow/realm/status?locale={Locale}&apikey={ApiKey}", out RealmsData realmsData);
             if (realmsData == null)
             {
                 return null;
@@ -281,7 +243,7 @@ namespace WowDotNetAPI
 
         public IEnumerable<Realm> GetRealms()
         {
-            return this.GetRealms(Locale.None);
+            return GetRealms(Locale.None);
         }
 
         #endregion
@@ -294,28 +256,17 @@ namespace WowDotNetAPI
         /// <returns>Auctions object for the given realm.</returns>
         public Auctions GetAuctions(string realm)
         {
-            AuctionFiles auctionFiles;
+            TryGetData($@"{Host}/wow/auction/data/{realm.ToLower().Replace(' ', '-')}?locale={Locale}&apikey={ApiKey}", out AuctionFiles auctionFiles);
 
-            TryGetData<AuctionFiles>(
-                string.Format(@"{0}/wow/auction/data/{1}?locale={2}&apikey={3}", Host, realm.ToLower().Replace(' ', '-'), Locale, APIKey),
-                out auctionFiles);
-
-            if (auctionFiles != null)
+            if (auctionFiles == null) return null;
+            var url = "";
+            foreach (var auctionFile in auctionFiles.Files)
             {
-                string url = "";
-                foreach (AuctionFile auctionFile in auctionFiles.Files)
-                {
-                    url = auctionFile.Url;
-                }
-
-                Auctions auctions;
-
-                TryGetData<Auctions>(url, out auctions);
-
-                return auctions;
+                url = auctionFile.Url;
             }
 
-            return null;
+            TryGetData(url, out Auctions auctions);
+            return auctions;
         }
 
         #endregion
@@ -323,24 +274,14 @@ namespace WowDotNetAPI
         #region Items
         public Item GetItem(int id)
         {
-            Item item;
-
-            TryGetData<Item>(
-                string.Format(@"{0}/wow/item/{1}?locale={2}&apikey={3}", Host, id, Locale, APIKey),
-                out item);
-
+            TryGetData($@"{Host}/wow/item/{id}?locale={Locale}&apikey={ApiKey}", out Item item);
             return item;
         }
 
         public IEnumerable<ItemClassInfo> GetItemClasses()
         {
-            ItemClassData itemclassdata;
-
-            TryGetData<ItemClassData>(
-                string.Format(@"{0}/wow/data/item/classes?locale={1}&apikey={2}", Host, Locale, APIKey),
-                out itemclassdata);
-
-            return (itemclassdata != null) ? itemclassdata.Classes : null;
+            TryGetData($@"{Host}/wow/data/item/classes?locale={Locale}&apikey={ApiKey}", out ItemClassData itemclassdata);
+            return itemclassdata?.Classes;
         }
 
         #endregion
@@ -348,52 +289,33 @@ namespace WowDotNetAPI
         #region CharacterRaceInfo
         public IEnumerable<CharacterRaceInfo> GetCharacterRaces()
         {
-            CharacterRacesData charRacesData;
-
-            TryGetData<CharacterRacesData>(
-                string.Format(@"{0}/wow/data/character/races?locale={1}&apikey={2}", Host, Locale, APIKey),
-                out charRacesData);
-
-            return (charRacesData != null) ? charRacesData.Races : null;
+            TryGetData($@"{Host}/wow/data/character/races?locale={Locale}&apikey={ApiKey}", out CharacterRacesData charRacesData);
+            return charRacesData?.Races;
         }
         #endregion
 
         #region CharacterClassInfo
         public IEnumerable<CharacterClassInfo> GetCharacterClasses()
         {
-            CharacterClassesData characterClasses;
-
-            TryGetData<CharacterClassesData>(
-                string.Format(@"{0}/wow/data/character/classes?locale={1}&apikey={2}", Host, Locale, APIKey),
-                out characterClasses);
-
-            return (characterClasses != null) ? characterClasses.Classes : null;
+            TryGetData($@"{Host}/wow/data/character/classes?locale={Locale}&apikey={ApiKey}", out CharacterClassesData characterClasses);
+            return characterClasses?.Classes;
         }
         #endregion
 
         #region GuildRewardInfo
         public IEnumerable<GuildRewardInfo> GetGuildRewards()
         {
-            GuildRewardsData guildRewardsData;
+            TryGetData($@"{Host}/wow/data/guild/rewards?locale={Locale}&apikey={ApiKey}", out GuildRewardsData guildRewardsData);
 
-            TryGetData<GuildRewardsData>(
-                string.Format(@"{0}/wow/data/guild/rewards?locale={1}&apikey={2}", Host, Locale, APIKey),
-                out guildRewardsData);
-
-            return (guildRewardsData != null) ? guildRewardsData.Rewards : null;
+            return guildRewardsData?.Rewards;
         }
         #endregion
 
         #region GuildPerkInfo
         public IEnumerable<GuildPerkInfo> GetGuildPerks()
         {
-            GuildPerksData guildPerksData;
-
-            TryGetData<GuildPerksData>(
-                 string.Format(@"{0}/wow/data/guild/perks?locale={1}&apikey={2}", Host, Locale, APIKey),
-                 out guildPerksData);
-
-            return (guildPerksData != null) ? guildPerksData.Perks : null;
+            TryGetData($@"{Host}/wow/data/guild/perks?locale={Locale}&apikey={ApiKey}", out GuildPerksData guildPerksData);
+            return guildPerksData?.Perks;
         }
         #endregion
 
@@ -405,12 +327,7 @@ namespace WowDotNetAPI
         /// <returns>AchievementInfo object for the achievement with the given id</returns>
         public AchievementInfo GetAchievement(int id)
         {
-            AchievementInfo achievement;
-
-            TryGetData<AchievementInfo>(
-                string.Format(@"{0}/wow/achievement/{1}?locale={2}&apikey={3}", Host, id, Locale, APIKey),
-                out achievement);
-
+            TryGetData($@"{Host}/wow/achievement/{id}?locale={Locale}&apikey={ApiKey}", out AchievementInfo achievement);
             return achievement;
         }
 
@@ -420,13 +337,8 @@ namespace WowDotNetAPI
         /// <returns>IEnumerable containing AchievementList items for each achievement</returns>
         public IEnumerable<AchievementList> GetAchievements()
         {
-            AchievementData achievementData;
-
-            TryGetData<AchievementData>(
-                string.Format(@"{0}/wow/data/character/achievements?locale={1}&apikey={2}", Host, Locale, APIKey),
-                out achievementData);
-
-            return (achievementData != null) ? achievementData.Lists : null;
+            TryGetData($@"{Host}/wow/data/character/achievements?locale={Locale}&apikey={ApiKey}", out AchievementData achievementData);
+            return achievementData?.Lists;
         }
 
         /// <summary>
@@ -435,13 +347,8 @@ namespace WowDotNetAPI
         /// <returns>IEnumerable containing AchievementList items for each achievement</returns>
         public IEnumerable<AchievementList> GetGuildAchievements()
         {
-            AchievementData achievementData;
-
-            TryGetData<AchievementData>(
-                string.Format(@"{0}/wow/data/guild/achievements?locale={1}&apikey={2}", Host, Locale, APIKey),
-                out achievementData);
-
-            return (achievementData != null) ? achievementData.Lists : null;
+            TryGetData($@"{Host}/wow/data/guild/achievements?locale={Locale}&apikey={ApiKey}", out AchievementData achievementData);
+            return achievementData?.Lists;
         }
 
         #endregion
@@ -449,13 +356,8 @@ namespace WowDotNetAPI
         #region Battlegroups
         public IEnumerable<BattlegroupInfo> GetBattlegroupsData()
         {
-            BattlegroupData battlegroupData;
-
-            TryGetData<BattlegroupData>(
-                string.Format(@"{0}/wow/data/battlegroups/?locale={1}&apikey={2}", Host, Locale, APIKey),
-                out battlegroupData);
-
-            return (battlegroupData != null) ? battlegroupData.Battlegroups : null;
+            TryGetData($@"{Host}/wow/data/battlegroups/?locale={Locale}&apikey={ApiKey}", out BattlegroupData battlegroupData);
+            return battlegroupData?.Battlegroups;
         }
         #endregion
 
@@ -468,12 +370,7 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public Challenges GetChallenges(string realm)
         {
-            Challenges challenges;
-
-            TryGetData<Challenges>(
-                string.Format(@"{0}/wow/challenge/{1}?locale={2}&apikey={3}", Host, realm, Locale, APIKey),
-                out challenges);
-
+            TryGetData($@"{Host}/wow/challenge/{realm}?locale={Locale}&apikey={ApiKey}", out Challenges challenges);
             return challenges;
         }
         #endregion
@@ -487,12 +384,7 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public Quest GetQuestData(int questId)
         {
-            Quest quest;
-
-            TryGetData<Quest>(
-                string.Format(@"{0}/wow/quest/{1}?locale={2}&apikey={3}", Host, questId, Locale, APIKey),
-                out quest);
-
+            TryGetData($@"{Host}/wow/quest/{questId}?locale={Locale}&apikey={ApiKey}", out Quest quest);
             return quest;
         }
 
@@ -501,12 +393,7 @@ namespace WowDotNetAPI
         #region PvP
         public Leaderboard GetLeaderBoards(Bracket bracket)
         {
-            Leaderboard pvpRows;
-
-            TryGetData<Leaderboard>(
-                string.Format(@"{0}/wow/leaderboard/{1}?locale={2}&apikey={3}", Host, bracket.ToString().Replace("_", "") , Locale, APIKey),
-                out pvpRows);
-
+            TryGetData($@"{Host}/wow/leaderboard/{bracket.ToString().Replace("_", "")}?locale={Locale}&apikey={ApiKey}", out Leaderboard pvpRows);
             return pvpRows;
         }
         #endregion
@@ -520,12 +407,7 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public Recipe GetRecipeData(int recipeId)
         {
-            Recipe recipe;
-
-            TryGetData<Recipe>(
-                string.Format(@"{0}/wow/recipe/{1}?locale={2}&apikey={3}", Host, recipeId, Locale, APIKey),
-                out recipe);
-
+            TryGetData($@"{Host}/wow/recipe/{recipeId}?locale={Locale}&apikey={ApiKey}", out Recipe recipe);
             return recipe;
         }
 
@@ -540,32 +422,23 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public Spell GetSpellData(int spellId)
         {
-            Spell spell;
-
-            TryGetData<Spell>(
-                string.Format(@"{0}/wow/spell/{1}?locale={2}&apikey={3}", Host, spellId, Locale, APIKey),
-                out spell);
-
+            TryGetData($@"{Host}/wow/spell/{spellId}?locale={Locale}&apikey={ApiKey}", out Spell spell);
             return spell;
         }
 
         #endregion
 
-        private T GetData<T>(string url) where T : class
-        {
-            return JsonUtility.FromJson<T>(url);
-        }
-
-        private void TryGetData<T>(string url, out T requestedObject) where T : class
+        private static bool TryGetData<T>(string url, out T requestedObject) where T : class
         {
             try
             {
                 requestedObject = JsonUtility.FromJson<T>(url);
+                return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 requestedObject = null;
-                throw ex;
+                return false;
             }
         }
     }

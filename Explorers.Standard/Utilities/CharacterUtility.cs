@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace WowDotNetAPI.Utilities
 {
     public static class CharacterUtility
     {
-        public static string buildOptionalQuery(CharacterOptions characterOptions)
+        public static string BuildOptionalQuery(CharacterOptions characterOptions)
         {
-            string query = "&fields=";
-            List<string> tmp = new List<string>();
+            var query = "&fields=";
+            var tmp = new List<string>();
 
             if ((characterOptions & CharacterOptions.GetGuild) == CharacterOptions.GetGuild)
                 tmp.Add("guild");
