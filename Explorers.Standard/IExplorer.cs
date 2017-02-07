@@ -43,6 +43,5 @@ namespace WowDotNetAPI
         Challenges GetChallenges(string realm);
 
         Leaderboard GetLeaderBoards(Bracket bracket);
-
     }
 }

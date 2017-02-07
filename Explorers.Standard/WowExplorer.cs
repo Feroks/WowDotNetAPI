@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using WowDotNetAPI.Models;
 using WowDotNetAPI.Utilities;
 
@@ -8,12 +9,12 @@ namespace WowDotNetAPI
 {
     public enum Region
     {
-        US,     //us.api.battle.net/
-        EU,     //eu.api.battle.net/
-        KR,     //kr.api.battle.net/
-        TW,     //tw.api.battle.net/
-        CN,     // ???
-        SEA     //sea.api.battle.net/
+        Us,     //us.api.battle.net/
+        Eu,     //eu.api.battle.net/
+        Kr,     //kr.api.battle.net/
+        Tw,     //tw.api.battle.net/
+        Cn,     // ???
+        Sea     //sea.api.battle.net/
     }
 
     public enum Locale
@@ -92,16 +93,16 @@ namespace WowDotNetAPI
 
             switch (Region)
             {
-                case Region.EU:
+                case Region.Eu:
                     Host = "https://eu.api.battle.net";
                     break;
-                case Region.KR:
+                case Region.Kr:
                     Host = "https://kr.api.battle.net";
                     break;
-                case Region.TW:
+                case Region.Tw:
                     Host = "https://tw.api.battle.net";
                     break;
-                case Region.CN:
+                case Region.Cn:
                     Host = "https://www.battlenet.com.cn";
                     break;
                 default:

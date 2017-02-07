@@ -11,7 +11,7 @@ namespace WowDotNetAPI.Explorers.Test
     {
         private static WowExplorer _explorer;
         private static readonly string ApiKey = TestStrings.APIKey;
-        private const Region WowRegion = Region.US;
+        private const Region WowRegion = Region.Us;
         private const Locale WowLocale = Locale.en_US;
         private const string CharacterName = "briandek";
         private const string Realm = "korgath";

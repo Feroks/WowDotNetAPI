@@ -16,7 +16,7 @@ namespace WowDotNetAPI.Explorers.Test
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            _explorer = new WowExplorer(Region.US, Locale.en_US, ApiKey);
+            _explorer = new WowExplorer(Region.Us, Locale.en_US, ApiKey);
             _guild = _explorer.GetGuild("korgath", "immortality", GuildOptions.GetEverything);
         }
 
@@ -122,7 +122,7 @@ namespace WowDotNetAPI.Explorers.Test
 
         [TestMethod]
         public void Get_Guild_With_Connected_Realms() {
-            var explorer = new WowExplorer(Region.EU, Locale.en_GB, ApiKey);
+            var explorer = new WowExplorer(Region.Eu, Locale.en_GB, ApiKey);
             var guild = explorer.GetGuild("darksorrow", "mentality", GuildOptions.GetMembers);
             //var guildMembers = guild2.Members.Where(x => x.Character.Name.Equals("Danishpala", StringComparison.CurrentCultureIgnoreCase)).ToList();
             var guildMaster = guild.Members.OrderBy(x => x.Rank).First().Character;

@@ -14,7 +14,7 @@ namespace WowDotNetAPI.Explorers.Test
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            _explorer = new WowExplorer(Region.US, Locale.en_US, ApiKey);
+            _explorer = new WowExplorer(Region.Us, Locale.en_US, ApiKey);
         }
 
         [TestMethod]
