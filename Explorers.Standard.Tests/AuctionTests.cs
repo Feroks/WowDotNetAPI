@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Explorers.Standard.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WowDotNetAPI.Models;
@@ -22,6 +23,13 @@ namespace WowDotNetAPI.Explorers.Test
         {
             Auctions auctions = _explorer.GetAuctions("skullcrusher");
             Assert.IsTrue(auctions.CurrentAuctions.Any());
+        }
+
+        [TestMethod]
+        public void Get_Auction_DataAge()
+        {
+            var age = _explorer.GetAuctionDataAge("skullcrusher");
+            Assert.IsTrue(age.CompareTo(new TimeSpan(0)) == 1);
         }
     }
 }

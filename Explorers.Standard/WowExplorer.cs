@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
+using WowDotNetAPI.Extensions;
 using WowDotNetAPI.Models;
 using WowDotNetAPI.Utilities;
 
@@ -250,6 +250,13 @@ namespace WowDotNetAPI
         #endregion
 
         #region Auctions
+
+        public TimeSpan GetAuctionDataAge(string realm)
+        {
+            TryGetData($@"{Host}/wow/auction/data/{realm.ToLower().Replace(' ', '-')}?locale={Locale}&apikey={ApiKey}", out AuctionSnapshot snapshot);
+            return DateTime.Now - TimeSpan.FromMilliseconds(snapshot?.Files.OrderBy(x => x.LastModified).FirstOrDefault()?.LastModified ?? 0).UnixToDateTime().ToLocalTime();
+        }
+
         /// <summary>
         /// Gets a list of all current auctions on the given realm and connected realms
         /// </summary>

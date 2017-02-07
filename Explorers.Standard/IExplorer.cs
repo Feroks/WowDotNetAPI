@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WowDotNetAPI.Models;
 
 namespace WowDotNetAPI
@@ -28,6 +29,7 @@ namespace WowDotNetAPI
 
         IEnumerable<Realm> GetRealms();
 
+        TimeSpan GetAuctionDataAge(string realm);
         Auctions GetAuctions(string realm);
 
         Item GetItem(int id);
