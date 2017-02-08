@@ -8,23 +8,16 @@ namespace WowDotNetAPI.Utilities
     {
         private static readonly HttpClient HttpClient = new HttpClient();
 
-        public static string GetJson(HttpRequestMessage req)
-        {
-            var task = GetJsonAsync(req);
-            task.Wait();
-            return task.Result;
-        }
-
         public static async Task<string> GetJsonAsync(HttpRequestMessage req)
         {
             var res = await HttpClient.SendAsync(req);
             return await res.Content.ReadAsStringAsync();
         }
 
-        public static T FromJson<T>(string url) where T : class
+        public static async Task<T> FromJsonAsync<T>(string url) where T : class
         {
             var req = new HttpRequestMessage(HttpMethod.Get, url);
-            return JsonConvert.DeserializeObject<T>(GetJson(req));
+            return JsonConvert.DeserializeObject<T>(await GetJsonAsync(req));
         }
 
         public static T FromJsonString<T>(string str) where T : class

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WowDotNetAPI.Extensions;
 using WowDotNetAPI.Models;
 using WowDotNetAPI.Utilities;
@@ -118,9 +119,19 @@ namespace WowDotNetAPI
             return GetCharacter(Region, realm, name, CharacterOptions.None);
         }
 
+        public async Task<Character> GetCharacterAsync(string realm, string name)
+        {
+            return await GetCharacterAsync(Region, realm, name, CharacterOptions.None);
+        }
+
         public Character GetCharacter(Region region, string realm, string name)
         {
             return GetCharacter(region, realm, name, CharacterOptions.None);
+        }
+
+        public async Task<Character> GetCharacterAsync(Region region, string realm, string name)
+        {
+            return await GetCharacterAsync(region, realm, name, CharacterOptions.None);
         }
 
         public Character GetCharacter(string realm, string name, CharacterOptions characterOptions)
@@ -128,10 +139,19 @@ namespace WowDotNetAPI
             return GetCharacter(Region, realm, name, characterOptions);
         }
 
+        public async Task<Character> GetCharacterAsync(string realm, string name, CharacterOptions characterOptions)
+        {
+            return await GetCharacterAsync(Region, realm, name, characterOptions);
+        }
+
         public Character GetCharacter(Region region, string realm, string name, CharacterOptions characterOptions)
         {
-            TryGetData($@"{Host}/wow/character/{realm}/{name}?locale={Locale}{CharacterUtility.BuildOptionalQuery(characterOptions)}&apikey={ApiKey}", out Character character);
-            return character;
+            return GetCharacterAsync(region, realm, name, characterOptions).GetAwaiter().GetResult();
+        }
+
+        public async Task<Character> GetCharacterAsync(Region region, string realm, string name, CharacterOptions characterOptions)
+        {
+            return await GetDataAsync<Character>($@"{Host}/wow/character/{realm}/{name}?locale={Locale}{CharacterUtility.BuildOptionalQuery(characterOptions)}&apikey={ApiKey}");
         }
 
         #endregion
@@ -143,9 +163,19 @@ namespace WowDotNetAPI
             return GetGuild(Region, realm, name, GuildOptions.None);
         }
 
+        public async Task<Guild> GetGuildAsync(string realm, string name)
+        {
+            return await GetGuildAsync(Region, realm, name, GuildOptions.None);
+        }
+
         public Guild GetGuild(Region region, string realm, string name)
         {
             return GetGuild(region, realm, name, GuildOptions.None);
+        }
+
+        public async Task<Guild> GetGuildAsync(Region region, string realm, string name)
+        {
+            return await GetGuildAsync(region, realm, name, GuildOptions.None);
         }
 
         public Guild GetGuild(string realm, string name, GuildOptions realmOptions)
@@ -153,10 +183,19 @@ namespace WowDotNetAPI
             return GetGuild(Region, realm, name, realmOptions);
         }
 
+        public async Task<Guild> GetGuildAsync(string realm, string name, GuildOptions realmOptions)
+        {
+            return await GetGuildAsync(Region, realm, name, realmOptions);
+        }
+
         public Guild GetGuild(Region region, string realm, string name, GuildOptions realmOptions)
         {
-            TryGetData($@"{Host}/wow/guild/{realm}/{name}?locale={Locale}{GuildUtility.BuildOptionalQuery(realmOptions)}&apikey={ApiKey}", out Guild guild);
-            return guild;
+            return GetGuildAsync(region, realm, name, realmOptions).GetAwaiter().GetResult();
+        }
+
+        public async Task<Guild> GetGuildAsync(Region region, string realm, string name, GuildOptions realmOptions)
+        {
+            return await GetDataAsync<Guild>($@"{Host}/wow/guild/{realm}/{name}?locale={Locale}{GuildUtility.BuildOptionalQuery(realmOptions)}&apikey={ApiKey}");
         }
 
         #endregion
@@ -169,8 +208,12 @@ namespace WowDotNetAPI
         /// <returns>PetList object containing an IEnumerable of Pet objects</returns>
         public IEnumerable<Pet> GetPets()
         {
-            TryGetData($@"{Host}/wow/pet/?locale={Locale}&apikey={ApiKey}", out PetList pets);
-            return pets.Pets;
+            return GetPetsAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<IEnumerable<Pet>> GetPetsAsync()
+        {
+            return (await GetDataAsync<PetList>($@"{Host}/wow/pet/?locale={Locale}&apikey={ApiKey}")).Pets;
         }
 
         /// <summary>
@@ -180,8 +223,12 @@ namespace WowDotNetAPI
         /// <returns>Returns PetAbilityDetails object for the ability with the given id</returns>
         public PetAbilityDetails GetPetAbilityDetails(int id)
         {
-            TryGetData($@"{Host}/wow/pet/ability/{id}?locale={Locale}&apikey={ApiKey}", out PetAbilityDetails ability);
-            return ability;
+            return GetPetAbilityDetailsAsync(id).GetAwaiter().GetResult();
+        }
+
+        public async Task<PetAbilityDetails> GetPetAbilityDetailsAsync(int id)
+        {
+            return await GetDataAsync<PetAbilityDetails>($@"{Host}/wow/pet/ability/{id}?locale={Locale}&apikey={ApiKey}");
         }
 
         /// <summary>
@@ -191,8 +238,12 @@ namespace WowDotNetAPI
         /// <returns>PetSpecies object containing details for the battle pet with the given species ID</returns>
         public PetSpecies GetPetSpeciesDetails(int id)
         {
-            TryGetData($@"{Host}/wow/pet/species/{id}?locale={Locale}&apikey={ApiKey}", out PetSpecies species);
-            return species;
+            return GetPetSpeciesDetailsAsync(id).GetAwaiter().GetResult();
+        }
+
+        public async Task<PetSpecies> GetPetSpeciesDetailsAsync(int id)
+        {
+            return await GetDataAsync<PetSpecies>($@"{Host}/wow/pet/species/{id}?locale={Locale}&apikey={ApiKey}");
         }
 
         /// <summary>
@@ -205,8 +256,12 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public PetStats GetPetStats(int speciesId, int level, int breedId, int qualityId)
         {
-            TryGetData($@"{Host}/wow/pet/stats/{speciesId}?level={level}&breedId={breedId}&qualityId={qualityId}&locale={Locale}&apikey={ApiKey}", out PetStats stats);
-            return stats;
+            return GetPetStatsAsync(speciesId, level, breedId, qualityId).GetAwaiter().GetResult();
+        }
+
+        public async Task<PetStats> GetPetStatsAsync(int speciesId, int level, int breedId, int qualityId)
+        {
+            return await GetDataAsync<PetStats>($@"{Host}/wow/pet/stats/{speciesId}?level={level}&breedId={breedId}&qualityId={qualityId}&locale={Locale}&apikey={ApiKey}");
         }
 
         /// <summary>
@@ -215,8 +270,13 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public IEnumerable<PetType> GetPetTypes()
         {
-            TryGetData($@"{Host}/wow/data/pet/types?locale={Locale}&apikey={ApiKey}", out PetTypeData types);
-            return types.PetTypes.Any() ? types.PetTypes : null;
+            return GetPetTypesAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<IEnumerable<PetType>> GetPetTypesAsync()
+        {
+            var types = (await GetDataAsync<PetTypeData>($@"{Host}/wow/data/pet/types?locale={Locale}&apikey={ApiKey}")).PetTypes.ToList();
+            return types.Any() ? types : null;
         }
 
         #endregion
@@ -225,26 +285,41 @@ namespace WowDotNetAPI
 
         public IEnumerable<Mount> GetMounts()
         {
-            TryGetData($@"{Host}/wow/mount/?locale={Locale}&apikey={ApiKey}", out Mounts mounts);
-            return mounts.MountList;
+            return GetMountsAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<IEnumerable<Mount>> GetMountsAsync()
+        {
+            return (await GetDataAsync<Mounts>($@"{Host}/wow/mount/?locale={Locale}&apikey={ApiKey}")).MountList;
         }
 
         #endregion
 
         #region Realms
+
+        public IEnumerable<Realm> GetRealms()
+        {
+            return GetRealms(Locale.None);
+        }
+
+        public async Task<IEnumerable<Realm>> GetRealmsAsync()
+        {
+            return await GetRealmsAsync(Locale.None);
+        }
+
         public IEnumerable<Realm> GetRealms(Locale locale)
         {
-            TryGetData($@"{Host}/wow/realm/status?locale={Locale}&apikey={ApiKey}", out RealmsData realmsData);
+            return GetRealmsAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<IEnumerable<Realm>> GetRealmsAsync(Locale locale)
+        {
+            var realmsData = await GetDataAsync<RealmsData>($@"{Host}/wow/realm/status?locale={Locale}&apikey={ApiKey}");
             if (realmsData == null)
             {
                 return null;
             }
             return locale == Locale.None ? realmsData.Realms : realmsData.Realms.Where(x => x.Locale == locale.ToString());
-        }
-
-        public IEnumerable<Realm> GetRealms()
-        {
-            return GetRealms(Locale.None);
         }
 
         #endregion
@@ -253,8 +328,13 @@ namespace WowDotNetAPI
 
         public TimeSpan GetAuctionDataAge(string realm)
         {
-            TryGetData($@"{Host}/wow/auction/data/{realm.ToLower().Replace(' ', '-')}?locale={Locale}&apikey={ApiKey}", out AuctionSnapshot snapshot);
-            return DateTime.Now - TimeSpan.FromMilliseconds(snapshot?.Files.OrderBy(x => x.LastModified).FirstOrDefault()?.LastModified ?? 0).UnixToDateTime().ToLocalTime();
+            return GetAuctionDataAgeAsync(realm).GetAwaiter().GetResult();
+        }
+
+        public async Task<TimeSpan> GetAuctionDataAgeAsync(string realm)
+        {
+            var snapShot = await GetAuctionFilesAsync(realm);
+            return DateTime.Now - TimeSpan.FromMilliseconds(snapShot?.Files.OrderBy(x => x.LastModified).FirstOrDefault()?.LastModified ?? 0).UnixToDateTime().ToLocalTime();
         }
 
         /// <summary>
@@ -264,7 +344,12 @@ namespace WowDotNetAPI
         /// <returns>Auctions object for the given realm.</returns>
         public Auctions GetAuctions(string realm)
         {
-            TryGetData($@"{Host}/wow/auction/data/{realm.ToLower().Replace(' ', '-')}?locale={Locale}&apikey={ApiKey}", out AuctionFiles auctionFiles);
+            return GetAuctionsAsync(realm).GetAwaiter().GetResult();
+        }
+
+        public async Task<Auctions> GetAuctionsAsync(string realm)
+        {
+            var auctionFiles = await GetAuctionFilesAsync(realm);
 
             if (auctionFiles == null) return null;
             var url = "";
@@ -273,8 +358,12 @@ namespace WowDotNetAPI
                 url = auctionFile.Url;
             }
 
-            TryGetData(url, out Auctions auctions);
-            return auctions;
+            return await GetDataAsync<Auctions>(url);
+        }
+
+        private async Task<AuctionFiles> GetAuctionFilesAsync(string realm)
+        {
+            return await GetDataAsync<AuctionFiles>($@"{Host}/wow/auction/data/{realm.ToLower().Replace(' ', '-')}?locale={Locale}&apikey={ApiKey}");
         }
 
         #endregion
@@ -282,14 +371,22 @@ namespace WowDotNetAPI
         #region Items
         public Item GetItem(int id)
         {
-            TryGetData($@"{Host}/wow/item/{id}?locale={Locale}&apikey={ApiKey}", out Item item);
-            return item;
+            return GetItemAsync(id).GetAwaiter().GetResult();
+        }
+
+        public async Task<Item> GetItemAsync(int id)
+        {
+            return await GetDataAsync<Item>($@"{Host}/wow/item/{id}?locale={Locale}&apikey={ApiKey}");
         }
 
         public IEnumerable<ItemClassInfo> GetItemClasses()
         {
-            TryGetData($@"{Host}/wow/data/item/classes?locale={Locale}&apikey={ApiKey}", out ItemClassData itemclassdata);
-            return itemclassdata?.Classes;
+            return GetItemClassesAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<IEnumerable<ItemClassInfo>> GetItemClassesAsync()
+        {
+            return (await GetDataAsync<ItemClassData>($@"{Host}/wow/data/item/classes?locale={Locale}&apikey={ApiKey}"))?.Classes;
         }
 
         #endregion
@@ -297,33 +394,48 @@ namespace WowDotNetAPI
         #region CharacterRaceInfo
         public IEnumerable<CharacterRaceInfo> GetCharacterRaces()
         {
-            TryGetData($@"{Host}/wow/data/character/races?locale={Locale}&apikey={ApiKey}", out CharacterRacesData charRacesData);
-            return charRacesData?.Races;
+            return GetCharacterRacesAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<IEnumerable<CharacterRaceInfo>> GetCharacterRacesAsync()
+        {
+            return (await GetDataAsync<CharacterRacesData>($@"{Host}/wow/data/character/races?locale={Locale}&apikey={ApiKey}"))?.Races;
         }
         #endregion
 
         #region CharacterClassInfo
         public IEnumerable<CharacterClassInfo> GetCharacterClasses()
         {
-            TryGetData($@"{Host}/wow/data/character/classes?locale={Locale}&apikey={ApiKey}", out CharacterClassesData characterClasses);
-            return characterClasses?.Classes;
+            return GetCharacterClassesAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<IEnumerable<CharacterClassInfo>> GetCharacterClassesAsync()
+        {
+            return (await GetDataAsync<CharacterClassesData>($@"{Host}/wow/data/character/classes?locale={Locale}&apikey={ApiKey}"))?.Classes;
         }
         #endregion
 
         #region GuildRewardInfo
         public IEnumerable<GuildRewardInfo> GetGuildRewards()
         {
-            TryGetData($@"{Host}/wow/data/guild/rewards?locale={Locale}&apikey={ApiKey}", out GuildRewardsData guildRewardsData);
+            return GetGuildRewardsAsync().GetAwaiter().GetResult();
+        }
 
-            return guildRewardsData?.Rewards;
+        public async Task<IEnumerable<GuildRewardInfo>> GetGuildRewardsAsync()
+        {
+            return (await GetDataAsync<GuildRewardsData>($@"{Host}/wow/data/guild/rewards?locale={Locale}&apikey={ApiKey}"))?.Rewards;
         }
         #endregion
 
         #region GuildPerkInfo
         public IEnumerable<GuildPerkInfo> GetGuildPerks()
         {
-            TryGetData($@"{Host}/wow/data/guild/perks?locale={Locale}&apikey={ApiKey}", out GuildPerksData guildPerksData);
-            return guildPerksData?.Perks;
+            return GetGuildPerksAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<IEnumerable<GuildPerkInfo>> GetGuildPerksAsync()
+        {
+            return (await GetDataAsync<GuildPerksData>($@"{Host}/wow/data/guild/perks?locale={Locale}&apikey={ApiKey}"))?.Perks;
         }
         #endregion
 
@@ -335,8 +447,12 @@ namespace WowDotNetAPI
         /// <returns>AchievementInfo object for the achievement with the given id</returns>
         public AchievementInfo GetAchievement(int id)
         {
-            TryGetData($@"{Host}/wow/achievement/{id}?locale={Locale}&apikey={ApiKey}", out AchievementInfo achievement);
-            return achievement;
+            return GetAchievementAsync(id).GetAwaiter().GetResult();
+        }
+
+        public async Task<AchievementInfo> GetAchievementAsync(int id)
+        {
+            return await GetDataAsync<AchievementInfo>($@"{Host}/wow/achievement/{id}?locale={Locale}&apikey={ApiKey}");
         }
 
         /// <summary>
@@ -345,8 +461,12 @@ namespace WowDotNetAPI
         /// <returns>IEnumerable containing AchievementList items for each achievement</returns>
         public IEnumerable<AchievementList> GetAchievements()
         {
-            TryGetData($@"{Host}/wow/data/character/achievements?locale={Locale}&apikey={ApiKey}", out AchievementData achievementData);
-            return achievementData?.Lists;
+            return GetAchievementsAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<IEnumerable<AchievementList>> GetAchievementsAsync()
+        {
+            return (await GetDataAsync<AchievementData>($@"{Host}/wow/data/character/achievements?locale={Locale}&apikey={ApiKey}"))?.Lists;
         }
 
         /// <summary>
@@ -355,8 +475,12 @@ namespace WowDotNetAPI
         /// <returns>IEnumerable containing AchievementList items for each achievement</returns>
         public IEnumerable<AchievementList> GetGuildAchievements()
         {
-            TryGetData($@"{Host}/wow/data/guild/achievements?locale={Locale}&apikey={ApiKey}", out AchievementData achievementData);
-            return achievementData?.Lists;
+            return GetGuildAchievementsAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<IEnumerable<AchievementList>> GetGuildAchievementsAsync()
+        {
+            return (await GetDataAsync<AchievementData>($@"{Host}/wow/data/guild/achievements?locale={Locale}&apikey={ApiKey}"))?.Lists;
         }
 
         #endregion
@@ -364,8 +488,12 @@ namespace WowDotNetAPI
         #region Battlegroups
         public IEnumerable<BattlegroupInfo> GetBattlegroupsData()
         {
-            TryGetData($@"{Host}/wow/data/battlegroups/?locale={Locale}&apikey={ApiKey}", out BattlegroupData battlegroupData);
-            return battlegroupData?.Battlegroups;
+            return GetBattlegroupsDataAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<IEnumerable<BattlegroupInfo>> GetBattlegroupsDataAsync()
+        {
+            return (await GetDataAsync<BattlegroupData>($@"{Host}/wow/data/battlegroups/?locale={Locale}&apikey={ApiKey}"))?.Battlegroups;
         }
         #endregion
 
@@ -378,8 +506,12 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public Challenges GetChallenges(string realm)
         {
-            TryGetData($@"{Host}/wow/challenge/{realm}?locale={Locale}&apikey={ApiKey}", out Challenges challenges);
-            return challenges;
+            return GetChallengesAsync(realm).GetAwaiter().GetResult();
+        }
+
+        public async Task<Challenges> GetChallengesAsync(string realm)
+        {
+            return await GetDataAsync<Challenges>($@"{Host}/wow/challenge/{realm}?locale={Locale}&apikey={ApiKey}");
         }
         #endregion
 
@@ -392,8 +524,12 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public Quest GetQuestData(int questId)
         {
-            TryGetData($@"{Host}/wow/quest/{questId}?locale={Locale}&apikey={ApiKey}", out Quest quest);
-            return quest;
+            return GetQuestDataAsync(questId).GetAwaiter().GetResult();
+        }
+
+        public async Task<Quest> GetQuestDataAsync(int questId)
+        {
+            return await GetDataAsync<Quest>($@"{Host}/wow/quest/{questId}?locale={Locale}&apikey={ApiKey}");
         }
 
         #endregion
@@ -401,8 +537,12 @@ namespace WowDotNetAPI
         #region PvP
         public Leaderboard GetLeaderBoards(Bracket bracket)
         {
-            TryGetData($@"{Host}/wow/leaderboard/{bracket.ToString().Replace("_", "")}?locale={Locale}&apikey={ApiKey}", out Leaderboard pvpRows);
-            return pvpRows;
+            return GetLeaderBoardsAsync(bracket).GetAwaiter().GetResult();
+        }
+
+        public async Task<Leaderboard> GetLeaderBoardsAsync(Bracket bracket)
+        {
+            return await GetDataAsync<Leaderboard>($@"{Host}/wow/leaderboard/{bracket.ToString().Replace("_", "")}?locale={Locale}&apikey={ApiKey}");
         }
         #endregion
 
@@ -415,8 +555,12 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public Recipe GetRecipeData(int recipeId)
         {
-            TryGetData($@"{Host}/wow/recipe/{recipeId}?locale={Locale}&apikey={ApiKey}", out Recipe recipe);
-            return recipe;
+            return GetRecipeDataAsync(recipeId).GetAwaiter().GetResult();
+        }
+
+        public async Task<Recipe> GetRecipeDataAsync(int recipeId)
+        {
+            return await GetDataAsync<Recipe>($@"{Host}/wow/recipe/{recipeId}?locale={Locale}&apikey={ApiKey}");
         }
 
         #endregion
@@ -430,24 +574,19 @@ namespace WowDotNetAPI
         /// <returns></returns>
         public Spell GetSpellData(int spellId)
         {
-            TryGetData($@"{Host}/wow/spell/{spellId}?locale={Locale}&apikey={ApiKey}", out Spell spell);
-            return spell;
+            return GetSpellDataAsync(spellId).GetAwaiter().GetResult();
+        }
+
+        public async Task<Spell> GetSpellDataAsync(int spellId)
+        {
+            return await GetDataAsync<Spell>($@"{Host}/wow/spell/{spellId}?locale={Locale}&apikey={ApiKey}");
         }
 
         #endregion
 
-        private static bool TryGetData<T>(string url, out T requestedObject) where T : class
+        private static async Task<T> GetDataAsync<T>(string url) where T : class
         {
-            try
-            {
-                requestedObject = JsonUtility.FromJson<T>(url);
-                return true;
-            }
-            catch (Exception)
-            {
-                requestedObject = null;
-                return false;
-            }
+            return await JsonUtility.FromJsonAsync<T>(url);
         }
     }
 }
