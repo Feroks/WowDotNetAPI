@@ -7,6 +7,17 @@ namespace WowDotNetAPI
 {
     public interface IExplorer
     {
+        event EventHandler OnAuctionDataUpdate;
+
+        Region Region { get; }
+        Locale Locale { get; }
+        string ApiKey { get; }
+
+        string Host { get; }
+
+        //ConcurrentDictionary<>
+            //Concurre
+
         Character GetCharacter(string realm, string name);
         Task<Character> GetCharacterAsync(string realm, string name);
 
@@ -105,5 +116,11 @@ namespace WowDotNetAPI
 
         Spell GetSpellData(int spellId);
         Task<Spell> GetSpellDataAsync(int spellId);
+
+
+        void StartMonitoringAuctionData(Region region, Realm realm, TimeSpan timeSpan);
+
+        void StopMonitoringAuctionData(Region region, Realm realm);
+        void StopMonitoringAuctionDataAll(Region region, Realm realm);
     }
 }

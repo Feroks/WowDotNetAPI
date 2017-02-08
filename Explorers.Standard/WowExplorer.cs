@@ -80,11 +80,13 @@ namespace WowDotNetAPI
 
     public class WowExplorer : IExplorer
     {
-        public Region Region { get; set; }
-        public Locale Locale { get; set; }
-        public string ApiKey { get; set; }
+        public event EventHandler OnAuctionDataUpdate;
 
-        public string Host { get; set; }
+        public Region Region { get; }
+        public Locale Locale { get; }
+        public string ApiKey { get; }
+
+        public string Host { get; }
 
         public WowExplorer(Region region, Locale locale, string apiKey)
         {
@@ -587,6 +589,21 @@ namespace WowDotNetAPI
         private static async Task<T> GetDataAsync<T>(string url) where T : class
         {
             return await JsonUtility.FromJsonAsync<T>(url);
+        }
+
+        public void StartMonitoringAuctionData(Region region, Realm realm, TimeSpan timeSpan)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StopMonitoringAuctionDataAll(Region region, Realm realm)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StopMonitoringAuctionData(Region region, Realm realm)
+        {
+            throw new NotImplementedException();
         }
     }
 }
