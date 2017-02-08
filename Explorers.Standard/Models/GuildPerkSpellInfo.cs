@@ -10,6 +10,10 @@
 
         public string Icon { get; set; }
 
+        public string CastTime { get; set; }
+
+        public string CoolDown { get; set; }
+
         public string Description { get; set; }
     }
 }

@@ -5,7 +5,8 @@ namespace WowDotNetAPI.Models
 {
     public class Auctions
     {
-        public Realm Realm { get; set; }
+        [JsonProperty("realms")]
+        public IEnumerable<Realm> Realm { get; set; }
         [JsonProperty("auctions")]
         public IEnumerable<Auction> CurrentAuctions { get; set; }
     }

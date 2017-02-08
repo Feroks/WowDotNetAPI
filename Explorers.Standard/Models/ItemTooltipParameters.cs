@@ -23,5 +23,7 @@ namespace WowDotNetAPI.Models
         public int Suffix { get; set; }
 
 		public ItemUpgrade ItemUpgrade { get; set; }
+
+        public int TimeWalkerLevel { get; set; }
 	}
 }

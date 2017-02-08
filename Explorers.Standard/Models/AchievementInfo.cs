@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using WowDotNetAPI.Enums;
 
 namespace WowDotNetAPI.Models
 {
@@ -11,6 +13,8 @@ namespace WowDotNetAPI.Models
         public string Reward { get; set; }
         public IEnumerable<AchievementReward> RewardItems { get; set; }
         public string Icon { get; set; }
+        [JsonProperty("factionId")]
+        public Faction Faction { get; set; }
         public IEnumerable<AchievementCriteria> Criteria { get; set; }
         public bool AccountWide { get; set; }
     }

@@ -23,6 +23,7 @@ namespace WowDotNetAPI.Explorers.Test
         {
             Auctions auctions = _explorer.GetAuctions("skullcrusher");
             Assert.IsTrue(auctions.CurrentAuctions.Any());
+            Assert.IsTrue(auctions.Realm.Any());
         }
 
         [TestMethod]
