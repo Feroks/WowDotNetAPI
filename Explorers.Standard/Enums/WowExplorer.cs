@@ -20,8 +20,7 @@ namespace WowDotNetAPI.Enums
         public Region Region { get; }
         public Locale Locale { get; }
         public string ApiKey { get; }
-
-        public string Host { get; }
+        public string Host => Region.GetHost();
 
         public IEnumerable<RealmRegionPair> MonitoredAuctionDataRealms => _auctionDataMonitorDictionary.Select(x => x.Value.RealmRegionPair).ToList();
 
@@ -31,25 +30,6 @@ namespace WowDotNetAPI.Enums
             Locale = locale;
             ApiKey = apiKey;
             _auctionDataMonitorDictionary = new ConcurrentDictionary<string, AuctionMonitor>();
-
-            switch (Region)
-            {
-                case Region.Eu:
-                    Host = "https://eu.api.battle.net";
-                    break;
-                case Region.Kr:
-                    Host = "https://kr.api.battle.net";
-                    break;
-                case Region.Tw:
-                    Host = "https://tw.api.battle.net";
-                    break;
-                case Region.Cn:
-                    Host = "https://www.battlenet.com.cn";
-                    break;
-                default:
-                    Host = "https://us.api.battle.net";
-                    break;
-            }
         }
 
         #region Character
@@ -91,7 +71,7 @@ namespace WowDotNetAPI.Enums
 
         public async Task<Character> GetCharacterAsync(Region region, string realm, string name, CharacterOptions characterOptions)
         {
-            return await GetDataAsync<Character>($@"{Host}/wow/character/{realm}/{name}?locale={Locale}{CharacterUtility.BuildOptionalQuery(characterOptions)}&apikey={ApiKey}");
+            return await GetDataAsync<Character>($@"{region.GetHost()}/wow/character/{realm}/{name}?locale={Locale}{CharacterUtility.BuildOptionalQuery(characterOptions)}&apikey={ApiKey}");
         }
 
         #endregion
@@ -135,7 +115,7 @@ namespace WowDotNetAPI.Enums
 
         public async Task<Guild> GetGuildAsync(Region region, string realm, string name, GuildOptions realmOptions)
         {
-            return await GetDataAsync<Guild>($@"{Host}/wow/guild/{realm}/{name}?locale={Locale}{GuildUtility.BuildOptionalQuery(realmOptions)}&apikey={ApiKey}");
+            return await GetDataAsync<Guild>($@"{region.GetHost()}/wow/guild/{realm}/{name}?locale={Locale}{GuildUtility.BuildOptionalQuery(realmOptions)}&apikey={ApiKey}");
         }
 
         #endregion
@@ -314,7 +294,7 @@ namespace WowDotNetAPI.Enums
 
         private async Task<AuctionFiles> GetAuctionFilesAsync(Region region, string realm)
         {
-            return await GetDataAsync<AuctionFiles>($@"{Host}/wow/auction/data/{realm.ToLower().Replace(' ', '-')}?locale={Locale}&apikey={ApiKey}");
+            return await GetDataAsync<AuctionFiles>($@"{region.GetHost()}/wow/auction/data/{realm.ToLower().Replace(' ', '-')}?locale={Locale}&apikey={ApiKey}");
         }
 
         #endregion
