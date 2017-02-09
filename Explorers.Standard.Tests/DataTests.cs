@@ -10,7 +10,7 @@ namespace WowDotNetAPI.Explorers.Test
     [TestClass]
     public class DataTests
     {
-        private static WowExplorer _explorer;
+        private static IExplorer _explorer;
         private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
@@ -22,7 +22,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_BattleGroups_Test()
         {
-            var battleGroups = _explorer.GetBattlegroupsData().ToList();
+            var battleGroups = _explorer.Pvp.GetBattlegroupsData().ToList();
 
             Assert.AreEqual(9, battleGroups.Count); 
             Assert.IsTrue(battleGroups.Any(r => r.Name == "Rampage"));
@@ -31,7 +31,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Character_Races_Data()
         {
-            var races = _explorer.GetCharacterRaces().ToList();
+            var races = _explorer.Character.GetCharacterRaces().ToList();
 
             Assert.AreEqual(15, races.Count);
             Assert.IsTrue(races.Any(r => r.Name == "Human" || r.Name == "Night Elf"));
@@ -40,7 +40,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Character_Achievements_Data()
         {
-            var characterAchievements = _explorer.GetAchievements().ToList();
+            var characterAchievements = _explorer.Achievment.GetAchievements().ToList();
 
             Assert.AreEqual(15, characterAchievements.Count);
             var achievementList = characterAchievements.First(a => a.Id == 92);
@@ -51,7 +51,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Character_Classes_Data()
         {
-            var classes = _explorer.GetCharacterClasses().ToList();
+            var classes = _explorer.Character.GetCharacterClasses().ToList();
 
             Assert.IsTrue(classes.Count == 12);
             Assert.IsTrue(classes.Any(r => r.Name == "Warrior" || r.Name == "Death Knight" || r.Name == "Demon Hunter"));
@@ -60,14 +60,14 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Guild_Achievements_Data()
         {
-            var guildAchievementsList = _explorer.GetGuildAchievements();
+            var guildAchievementsList = _explorer.Achievment.GetGuildAchievements();
             Assert.AreEqual(7, guildAchievementsList.Count());
         }
 
         [TestMethod]
         public void Get_Guild_Rewards_Data()
         {
-            var rewards = _explorer.GetGuildRewards().ToList();
+            var rewards = _explorer.Guild.GetGuildRewards().ToList();
             Assert.AreEqual(64, rewards.Count);
             Assert.IsTrue(rewards.Any(r => r.Achievement != null));
         }
@@ -75,7 +75,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Guild_Perks_Data()
         {
-            var perks = _explorer.GetGuildPerks().ToList();
+            var perks = _explorer.Guild.GetGuildPerks().ToList();
             Assert.AreEqual(5, perks.Count);
             Assert.IsTrue(perks.Any(r => r.Spell != null));
         }
@@ -83,19 +83,17 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Realms_From_Json_String()
         {
-            var realms1 = _explorer.GetRealms();
+            var realms1 = _explorer.Realm.GetRealms();
             var realms2 = JsonUtility.FromJsonString<RealmsData>(TestStrings.TestRealms).Realms;
             var realms3 = realms1.Intersect(realms2);
             Assert.AreEqual(0, realms3.Count());
-
         }
 
         [TestMethod]
         public void Get_Item_Classes()
         {
-            var itemClasses = _explorer.GetItemClasses();
+            var itemClasses = _explorer.Item.GetItemClasses();
             Assert.AreEqual(16, itemClasses.Count());
-
         }
     }
 }

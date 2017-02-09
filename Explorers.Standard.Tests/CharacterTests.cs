@@ -3,7 +3,6 @@ using System.Linq;
 using Explorers.Standard.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WowDotNetAPI.Enums;
-using WowDotNetAPI.Models;
 using WowDotNetAPI.Models.BattleNetApi.Character;
 
 namespace WowDotNetAPI.Explorers.Test
@@ -11,7 +10,7 @@ namespace WowDotNetAPI.Explorers.Test
     [TestClass]
     public class CharacterTests
     {
-        private static WowExplorer _explorer;
+        private static IExplorer _explorer;
         private static readonly string ApiKey = TestStrings.APIKey;
         private const Region WowRegion = Region.Us;
         private const Locale WowLocale = Locale.en_US;
@@ -31,7 +30,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -57,7 +56,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character_WithGuild()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetGuild);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetGuild);
 
             Assert.IsNotNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -83,7 +82,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character_WithStats()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetStats);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetStats);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNotNull(briandek.Stats);
@@ -109,7 +108,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character_WithTalents()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetTalents);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetTalents);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -135,7 +134,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character_WithItems()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetItems);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetItems);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -162,7 +161,7 @@ namespace WowDotNetAPI.Explorers.Test
 		[TestMethod]
 		public void Get_Simple_Character_WithItems_Tabard() {
 			string characterNameWithTabard = "Taichibi";
-			var briandek = _explorer.GetCharacter(Realm, characterNameWithTabard, CharacterOptions.GetItems);
+			var briandek = _explorer.Character.GetCharacter(Realm, characterNameWithTabard, CharacterOptions.GetItems);
 			Assert.IsNotNull(briandek.Items);
 			Assert.IsTrue(briandek.Name.Equals(characterNameWithTabard, StringComparison.OrdinalIgnoreCase));
 			Assert.IsNotNull(briandek.Items.Tabard);
@@ -171,7 +170,7 @@ namespace WowDotNetAPI.Explorers.Test
 		[TestMethod]
         public void Get_Simple_Character_WithReputations()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetReputation);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetReputation);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -197,7 +196,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character_WithTitles()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetTitles);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetTitles);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -223,7 +222,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character_WithProfessions()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetProfessions);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetProfessions);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -249,7 +248,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character_WithAppearance()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetAppearance);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetAppearance);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -275,7 +274,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character_WithPetSlots()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetPetSlots);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetPetSlots);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -302,7 +301,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character_WithMounts()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetMounts);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetMounts);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -330,8 +329,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character_WithAchievements()
         {
-
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetAchievements);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetAchievements);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -357,8 +355,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Simple_Character_WithProgression()
         {
-
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetProgression);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetProgression);
 
             Assert.IsNull(briandek.Guild);
             Assert.IsNull(briandek.Stats);
@@ -384,7 +381,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Complex_Character()
         {
-            var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetEverything);
+            var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetEverything);
 
             Assert.IsNotNull(briandek.Guild);
             Assert.IsNotNull(briandek.Stats);
@@ -409,7 +406,7 @@ namespace WowDotNetAPI.Explorers.Test
 
 		[TestMethod]
 		public void Get_Artifact_Weapon() {
-			var briandek = _explorer.GetCharacter(Realm, CharacterName, CharacterOptions.GetEverything);
+			var briandek = _explorer.Character.GetCharacter(Realm, CharacterName, CharacterOptions.GetEverything);
 
 			Assert.IsNotNull(briandek.Items);
 			Assert.IsTrue(briandek.Items.MainHand.ArtifactId > 0);

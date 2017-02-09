@@ -7,7 +7,7 @@ namespace WowDotNetAPI.Explorers.Test
     [TestClass]
     public class RecipeTests
     {
-        private static WowExplorer _explorer;
+        private static IExplorer _explorer;
         private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
@@ -19,7 +19,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Recipe_Data()
         {
-            var recipe = _explorer.GetRecipeData(33994);
+            var recipe = _explorer.Misc.GetRecipeData(33994);
             Assert.IsNotNull(recipe);
         }
     }

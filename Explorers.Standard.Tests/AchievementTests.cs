@@ -8,7 +8,7 @@ namespace WowDotNetAPI.Explorers.Test
     [TestClass]
     public class AchievementTests
     {
-        private static WowExplorer _explorer;
+        private static IExplorer _explorer;
         private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
@@ -20,21 +20,21 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Achievements_List()
         {
-            var achievements = _explorer.GetAchievements();
+            var achievements = _explorer.Achievment.GetAchievements();
             Assert.IsTrue(achievements != null && achievements.Any());
         }
 
         [TestMethod]
         public void Get_Achievement_Details()
         {
-            var achievement = _explorer.GetAchievement(2144);
+            var achievement = _explorer.Achievment.GetAchievement(2144);
             Assert.IsNotNull(achievement);
         }
 
         [TestMethod]
         public void Get_Guild_Achievements_List()
         {
-            var achievements = _explorer.GetGuildAchievements();
+            var achievements = _explorer.Achievment.GetGuildAchievements();
             Assert.IsTrue(achievements != null && achievements.Any());
         }
     }

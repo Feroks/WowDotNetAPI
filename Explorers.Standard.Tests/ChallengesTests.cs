@@ -2,7 +2,6 @@
 using Explorers.Standard.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WowDotNetAPI.Enums;
-using WowDotNetAPI.Models;
 using WowDotNetAPI.Models.BattleNetApi.Challenge;
 
 namespace WowDotNetAPI.Explorers.Test
@@ -10,7 +9,7 @@ namespace WowDotNetAPI.Explorers.Test
     [TestClass]
     public class ChallengesTests
     {
-        private static WowExplorer _explorer;
+        private static IExplorer _explorer;
         private static Challenges _challenges;
         private static readonly string ApiKey = TestStrings.APIKey;
 
@@ -23,7 +22,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Challenges_From_Skullcrusher()
         {
-            _challenges = _explorer.GetChallenges("skullcrusher");
+            _challenges = _explorer.Challenge.GetChallenges("skullcrusher");
             Assert.IsTrue(_challenges.Challenge.Any());            
             Assert.AreEqual("Auchindoun", _challenges.Challenge.First().Map.Name);
         }

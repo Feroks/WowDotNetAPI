@@ -11,7 +11,7 @@ namespace WowDotNetAPI.Explorers.Test
     [TestClass]
     public class GuildTests
     {
-        private static WowExplorer _explorer;
+        private static IExplorer _explorer;
         private static Guild _guild;
         private static readonly string ApiKey = TestStrings.APIKey;
 
@@ -19,7 +19,7 @@ namespace WowDotNetAPI.Explorers.Test
         public static void ClassInit(TestContext context)
         {
             _explorer = new WowExplorer(Region.Us, Locale.en_US, ApiKey);
-            _guild = _explorer.GetGuild("korgath", "immortality", GuildOptions.GetEverything);
+            _guild = _explorer.Guild.GetGuild("korgath", "immortality", GuildOptions.GetEverything);
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Valid_Member_From_Another_Guild()
         {
-            var guild = _explorer.GetGuild("laughing skull", "deus vox", GuildOptions.GetMembers | GuildOptions.GetAchievements);
+            var guild = _explorer.Guild.GetGuild("laughing skull", "deus vox", GuildOptions.GetMembers | GuildOptions.GetAchievements);
 
 
             Assert.IsNotNull(guild.Members);
@@ -61,7 +61,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Valid_Member_From_Horde_Guild()
         {
-            var guild = _explorer.GetGuild("skullcrusher", "rage", GuildOptions.GetMembers);
+            var guild = _explorer.Guild.GetGuild("skullcrusher", "rage", GuildOptions.GetMembers);
 
             Assert.IsNotNull(guild.Members);
             Assert.IsNull(guild.Achievements);
@@ -77,7 +77,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Guild_With_Only_Achievements()
         {
-            var guild = _explorer.GetGuild("skullcrusher", "immortality", GuildOptions.GetAchievements);
+            var guild = _explorer.Guild.GetGuild("skullcrusher", "immortality", GuildOptions.GetAchievements);
 
             Assert.IsNull(guild.Members);
             Assert.IsNotNull(guild.Achievements);
@@ -89,7 +89,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Guild_With_Only_Members()
         {
-            var guild = _explorer.GetGuild("skullcrusher", "immortality", GuildOptions.GetMembers);
+            var guild = _explorer.Guild.GetGuild("skullcrusher", "immortality", GuildOptions.GetMembers);
 
             Assert.IsNotNull(guild.Members);
             Assert.IsNull(guild.Achievements);
@@ -101,7 +101,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Guild_With_Only_No_Options()
         {
-            var guild = _explorer.GetGuild("skullcrusher", "immortality", GuildOptions.None);
+            var guild = _explorer.Guild.GetGuild("skullcrusher", "immortality", GuildOptions.None);
 
             Assert.IsNull(guild.Members);
             Assert.IsNull(guild.Achievements);
@@ -113,7 +113,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Guild_With_Base_Method_Call()
         {
-            var guild = _explorer.GetGuild("skullcrusher", "immortality");
+            var guild = _explorer.Guild.GetGuild("skullcrusher", "immortality");
 
             Assert.IsNull(guild.Members);
             Assert.IsNull(guild.Achievements);
@@ -125,7 +125,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Guild_With_Connected_Realms() {
             var explorer = new WowExplorer(Region.Eu, Locale.en_GB, ApiKey);
-            var guild = explorer.GetGuild("darksorrow", "mentality", GuildOptions.GetMembers);
+            var guild = explorer.Guild.GetGuild("darksorrow", "mentality", GuildOptions.GetMembers);
             //var guildMembers = guild2.Members.Where(x => x.Character.Name.Equals("Danishpala", StringComparison.CurrentCultureIgnoreCase)).ToList();
             var guildMaster = guild.Members.OrderBy(x => x.Rank).First().Character;
 

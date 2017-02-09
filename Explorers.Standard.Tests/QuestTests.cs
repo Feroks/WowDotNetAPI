@@ -7,7 +7,7 @@ namespace WowDotNetAPI.Explorers.Test
     [TestClass]
     public class QuestTests
     {
-        private static WowExplorer _explorer;
+        private static IExplorer _explorer;
         private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
@@ -19,7 +19,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Quest_Data()
         {
-            var questData = _explorer.GetQuestData(13146);
+            var questData = _explorer.Misc.GetQuestData(13146);
             Assert.IsNotNull(questData);
         }
     }

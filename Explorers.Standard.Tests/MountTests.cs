@@ -8,7 +8,7 @@ namespace WowDotNetAPI.Explorers.Test
     [TestClass]
     public class MountTests
     {
-        private static WowExplorer _explorer;
+        private static IExplorer _explorer;
         private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
@@ -20,7 +20,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Mount_List()
         {
-            var mounts = _explorer.GetMounts();
+            var mounts = _explorer.Misc.GetMounts();
             Assert.IsTrue(mounts.Any());
         }
     }

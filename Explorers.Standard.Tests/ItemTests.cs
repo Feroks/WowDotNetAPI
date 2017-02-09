@@ -8,7 +8,7 @@ namespace WowDotNetAPI.Explorers.Test
     [TestClass]
     public class ItemTests
     {
-        private static WowExplorer _explorer;
+        private static IExplorer _explorer;
         private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
@@ -20,7 +20,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Sample_Item_38268()
         {
-            var sampleItem = _explorer.GetItem(38268);
+            var sampleItem = _explorer.Item.GetItem(38268);
 
             Assert.AreEqual("Spare Hand", sampleItem.Name);
             Assert.AreEqual("Give to a Friend", sampleItem.Description);
@@ -31,12 +31,10 @@ namespace WowDotNetAPI.Explorers.Test
             Assert.AreEqual(1, sampleItem.WeaponInfo.Damage.MaxDamage);
         }
 
-
-
         [TestMethod]
         public void Get_Sample_Item_39564()
         {
-            var sampleItem = _explorer.GetItem(39564);
+            var sampleItem = _explorer.Item.GetItem(39564);
 
             Assert.AreEqual(@"Heroes' Bonescythe Legplates", sampleItem.Name);
             Assert.AreEqual("", sampleItem.Description);
@@ -56,7 +54,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Sample_Item_17182()
         {
-            var sampleItem = _explorer.GetItem(17182);
+            var sampleItem = _explorer.Item.GetItem(17182);
 
             Assert.AreEqual("Sulfuras, Hand of Ragnaros", sampleItem.Name);
             Assert.AreEqual("", sampleItem.Description);
@@ -75,7 +73,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Sample_Gem_52210()
         {
-            var sampleItem = _explorer.GetItem(52210);
+            var sampleItem = _explorer.Item.GetItem(52210);
 
             Assert.AreEqual("+8 Parry and +4 Stamina", sampleItem.GemInfo.Bonus.Name);
             Assert.AreEqual("PURPLE", sampleItem.GemInfo.Type.Color);

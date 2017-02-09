@@ -7,7 +7,7 @@ namespace WowDotNetAPI.Explorers.Test
     [TestClass]
     internal class SpellTests
     {
-        private static WowExplorer _explorer;
+        private static IExplorer _explorer;
         private static readonly string ApiKey = TestStrings.APIKey;
 
         [ClassInitialize]
@@ -19,7 +19,7 @@ namespace WowDotNetAPI.Explorers.Test
         [TestMethod]
         public void Get_Spell_Data()
         {
-            var spell = _explorer.GetSpellData(8056);
+            var spell = _explorer.Misc.GetSpellData(8056);
             Assert.IsNotNull(spell);
         }
     }
