@@ -3,7 +3,8 @@ using System.Linq;
 using Explorers.Standard.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WowDotNetAPI.Enums;
-using WowDotNetAPI.Models;
+using WowDotNetAPI.Models.BattleNetApi.Character;
+using WowDotNetAPI.Models.BattleNetApi.Guild;
 
 namespace WowDotNetAPI.Explorers.Test
 {

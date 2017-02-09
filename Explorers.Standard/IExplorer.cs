@@ -2,7 +2,17 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WowDotNetAPI.Enums;
-using WowDotNetAPI.Models;
+using WowDotNetAPI.Models.BattleNetApi;
+using WowDotNetAPI.Models.BattleNetApi.Achievement;
+using WowDotNetAPI.Models.BattleNetApi.Auction;
+using WowDotNetAPI.Models.BattleNetApi.Challenge;
+using WowDotNetAPI.Models.BattleNetApi.Character;
+using WowDotNetAPI.Models.BattleNetApi.Guild;
+using WowDotNetAPI.Models.BattleNetApi.Item;
+using WowDotNetAPI.Models.BattleNetApi.Mount;
+using WowDotNetAPI.Models.BattleNetApi.Pet;
+using WowDotNetAPI.Models.BattleNetApi.PvP;
+using WowDotNetAPI.Models.BattleNetApi.Realm;
 using WowDotNetAPI.Models.HelperModels;
 
 namespace WowDotNetAPI

@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using WowDotNetAPI.Models.BattleNetApi.Auction;
 
 namespace WowDotNetAPI.Models.HelperModels
 {

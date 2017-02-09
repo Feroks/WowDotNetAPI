@@ -3,6 +3,7 @@ using Explorers.Standard.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WowDotNetAPI.Enums;
 using WowDotNetAPI.Models;
+using WowDotNetAPI.Models.BattleNetApi.Challenge;
 
 namespace WowDotNetAPI.Explorers.Test
 {
