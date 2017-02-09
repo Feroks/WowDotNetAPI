@@ -95,7 +95,6 @@ namespace WowDotNetAPI.Repositories.Logic
                 auctionMonitor = new AuctionMonitor(timer, realmRegionPair);
 
                 _auctionDataMonitorDictionary.TryAdd(realmRegionPair.UniquId, auctionMonitor);
-                //TODO: inform user
             }
         }
 
@@ -117,7 +116,6 @@ namespace WowDotNetAPI.Repositories.Logic
             var realmRegionPair = state as RealmRegionPair;
             if (realmRegionPair == null) return;
 
-            // TODO async?
             var newFiles = GetAuctionFilesAsync(realmRegionPair.Region, realmRegionPair.Realm).GetAwaiter().GetResult();
             var newestFile = newFiles.Files.OrderBy(x => x.LastModified).FirstOrDefault()?.LastModified;
 
