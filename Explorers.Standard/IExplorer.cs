@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WowDotNetAPI.Models;
+using WowDotNetAPI.Models.HelperModels;
 
 namespace WowDotNetAPI
 {
     public interface IExplorer
     {
-        event EventHandler OnAuctionDataUpdate;
+        event EventHandler<NewAuctionDataEventArgs> OnAuctionDataUpdate;
 
         Region Region { get; }
         Locale Locale { get; }
         string ApiKey { get; }
 
         string Host { get; }
-
-        //ConcurrentDictionary<>
-            //Concurre
 
         Character GetCharacter(string realm, string name);
         Task<Character> GetCharacterAsync(string realm, string name);
@@ -84,6 +82,9 @@ namespace WowDotNetAPI
         TimeSpan GetAuctionDataAge(string realm);
         Task<TimeSpan> GetAuctionDataAgeAsync(string realm);
 
+        TimeSpan GetAuctionDataAge(Region region, string realm);
+        Task<TimeSpan> GetAuctionDataAgeAsync(Region region, string realm);
+
         Auctions GetAuctions(string realm);
         Task<Auctions> GetAuctionsAsync(string realm);
 
@@ -118,9 +119,9 @@ namespace WowDotNetAPI
         Task<Spell> GetSpellDataAsync(int spellId);
 
 
-        void StartMonitoringAuctionData(Region region, Realm realm, TimeSpan timeSpan);
+        void StartMonitoringAuctionData(Region region, string realm, TimeSpan timeSpan);
 
-        void StopMonitoringAuctionData(Region region, Realm realm);
-        void StopMonitoringAuctionDataAll(Region region, Realm realm);
+        void StopMonitoringAuctionData(Region region, string realm);
+        void StopMonitoringAuctionDataAll();
     }
 }

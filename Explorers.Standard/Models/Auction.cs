@@ -14,7 +14,7 @@ namespace WowDotNetAPI.Models
         public long Buyout { get; set; }
         public int Quantity { get; set; }
         public int Rand { get; set; }
-        public int Seed { get; set; }
+        public long Seed { get; set; }
         public int Context { get; set; }
         public string TimeLeft { get; set; }
     }

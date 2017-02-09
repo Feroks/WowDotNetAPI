@@ -11,7 +11,8 @@ namespace WowDotNetAPI.Utilities
         public static async Task<string> GetJsonAsync(HttpRequestMessage req)
         {
             var res = await HttpClient.SendAsync(req);
-            return await res.Content.ReadAsStringAsync();
+            var con = await res.Content.ReadAsStringAsync();
+            return con;
         }
 
         public static async Task<T> FromJsonAsync<T>(string url) where T : class
