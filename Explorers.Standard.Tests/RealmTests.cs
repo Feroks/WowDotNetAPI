@@ -2,6 +2,7 @@
 using System.Linq;
 using Explorers.Standard.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WowDotNetAPI.Enums;
 using WowDotNetAPI.Models;
 
 namespace WowDotNetAPI.Explorers.Test

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Explorers.Standard.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WowDotNetAPI.Enums;
 using WowDotNetAPI.Models;
 using WowDotNetAPI.Models.HelperModels;
 

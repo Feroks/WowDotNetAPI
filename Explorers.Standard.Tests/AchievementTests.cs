@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Explorers.Standard.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WowDotNetAPI.Enums;
 
 namespace WowDotNetAPI.Explorers.Test
 {

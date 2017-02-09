@@ -1,4 +1,6 @@
-﻿namespace WowDotNetAPI.Models.HelperModels
+﻿using WowDotNetAPI.Enums;
+
+namespace WowDotNetAPI.Models.HelperModels
 {
     public class RealmRegionPair
     {

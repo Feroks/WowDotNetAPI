@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WowDotNetAPI.Enums;
 using WowDotNetAPI.Models;
 using WowDotNetAPI.Models.HelperModels;
 
